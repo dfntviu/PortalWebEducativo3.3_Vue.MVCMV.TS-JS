@@ -1,0 +1,10 @@
+  // Visit https://aka.ms/tsconfig to read more about this file
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    // Other Outputs  ## Recommended Options
+  },
+  "include":["vite.config.ts"]
+}
