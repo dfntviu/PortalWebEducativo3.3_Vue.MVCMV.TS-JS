@@ -30,8 +30,8 @@
 <script setup>
 
  import { ref,defineProps} from 'vue';
- import { useMaterialStore } from '@/stores/materialStore';
- import { useAuthStore } from '@/stores/authStore';  // verficar el inicio de sesion del usuario
+ import { useMaterialStore } from '@/stores/materialStore.ts';
+ import { useAuthStore } from '@/stores/authStore2.ts';  // verficar el inicio de sesion del usuario
   import {materialesValidations, validateMaterialActual, stateOfMaterial} from '@/utils/validations.origin/validationsMaterials.js'; /* *|. * */
   // import  {materialAdmValidations} from '@/utils/validations.origin/validationsAdminMaterials.js';
     // import { storage } from '../firebase/config';

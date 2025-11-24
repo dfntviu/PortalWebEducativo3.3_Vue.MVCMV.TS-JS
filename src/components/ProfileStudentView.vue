@@ -33,9 +33,31 @@
 	</section>
 </template>
 
-<script>
+<script setup lang="ts">
+   // me costo mucho, para evitar problemas todo las entradas en el component, solo lo que conlleve un proceso de carga aqui, lo que sea secuencial en el composable
+	 import { useProfileStore } from '@/stores/profileStore.optimized.ts'; 
+	import {ref, onMounted} from 'vue';
+	 import type {User} from '@/types/interf.index.ts';
 	 import {composableProfileStudent} from '@/composable/composableProfile.js';
+      
+      
+      const store_profile = useProfileStore();
+	    const       usuario = ref<User | null >(null);
+
+	//here generate with error of  'Uncaught Error: [🍍]: "getActivePinia()".was called but there was no active Pinia'
+       // const   usuario = ref<User | null >(null);
 
 	 // Metodo para manipular la edicion y manipulacion del Perfil de Profesor
-	 const {handleSumbit,EditarAlumno,deleteProfile,form_edit} = composableProfileStudent();
+	 const {handleSumbit,form_edit} = composableProfileStudent();
+	const handleDelete = async () => {
+		if (usuario.value) {
+		   await handleSubmit();  // Llamamos al handleSubmit del composable
+ 	    } else {
+		 alert('No hay usuario para eliminar');
+ 	    }
+	};
+
+	onMounted(async()=>{
+       await handleDelete();
+	})
 </script>

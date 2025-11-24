@@ -1,10 +1,10 @@
-import defineStore from 'pinia';
-  import {ModerationService} from '@/Services/moderationServ';
+import {defineStore} from 'pinia';
+  import {ModerationService} from '@/services/ModerationServ.ts';
   import {Moderation} from '@/types/interf.index';
   import {Comentario} from '@/types/interf.index';
   import type  {Material} from '@/types/interf.index';
   // Instalar Pinia
-    const useModerationStore =  ('moderation_materials', {
+    export const useModerationStore =  defineStore('moderation_materials', {
      	 state: () => ({
     	 	   // Dec. de las variables reactivas de ambos roles    --> tot <- 3.5
           // tipo_moderation: 'uuid_mat' as Moderation | null;  // 1 acierto
@@ -21,6 +21,7 @@ import defineStore from 'pinia';
                // falto la 2° linea
      	 		this.loading = true;
                 this.error = "";    
+                this.estado = "pendiente" ;
      	 		
      	 	    try{
                     // Se comprueba y/o valida el estado actual
@@ -35,7 +36,7 @@ import defineStore from 'pinia';
                   }
        	 	    }catch(err: any){
        	 	    	  this.error = err.message || "Error en la moderación de materiales" ;
-                       console.error(`[ModerationStre] Error: ${this.error}` );
+                       console.error(`[ModerationStre] Error: ${this.error}.` );
        	 	    }finally{
        	 	   	      this.loading = false;
        	 	    }

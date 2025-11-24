@@ -15,9 +15,9 @@
         </div>
 </template>
 <script setup>
-    import {ref, computed } from 'vue';
-    import { RegisterStudentView } from '@/components/RegisterStudentView.vue';
-    import { ProfileStudentView  } from '@/components/ProfileStudentView.vue';
+    import {ref, computed, onMounted} from 'vue';
+    import  RegisterStudentView  from '@/components/RegisterStudentView.vue';
+    import  ProfileStudentView from '@/components/ProfileStudentView.vue';
     // import {validacionesPerfilProfessor} from '@/utils/validations.origin/validacionsProfileTeacher.js'; //*
 
     const current = ref('register');
@@ -32,6 +32,10 @@
     function mostrarEdicion() {
         current.value = 'edicion';
     }
+
+    onMounted(()=>{
+        currentView;
+    });
 
         
     /*Sugerencia crear directorio composables:

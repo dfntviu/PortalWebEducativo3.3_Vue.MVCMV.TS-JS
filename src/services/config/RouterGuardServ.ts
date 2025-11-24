@@ -2,7 +2,7 @@
   para acceder a una ruta particular.*/
 
 import {PermissionsService} from '@/services/config/PermissionsServ.ts';  /** Clase de permisos segun su Rol **/
-  import {useAuthStore} from '@/stores/authStore.ts';
+  import {useAuthStore} from '@/stores/authStore2.ts';
 import type {NavigationGuardNext, RouteLocationNormalized} from 'vue-router'; //error instal dependence
  
     export class RouterGuardService {
@@ -41,7 +41,11 @@ import type {NavigationGuardNext, RouteLocationNormalized} from 'vue-router'; //
     	 	 }
 
     	 	 next();
-
+    	 	 // el role aun no existe por eso envia a la pagina de error. en la 2da no eista meta.role, pero la cte de
+    	 	 // permiso de servicio invoca como argumento role. Como se esta trabajando con role pero 
+    	 	 // aun no se define el sistema cree que si, entonce envia a la pagina de Error. Al comentar estas 2
+    	 	 // la unica que satisface las condiciones es la del nombre del componente de la pagina de Inicio y 
+    	 	 // en consecuencia da el acceso.
     	 }
     }
 

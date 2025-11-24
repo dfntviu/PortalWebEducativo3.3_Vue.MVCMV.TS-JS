@@ -1,5 +1,5 @@
  import {fragmentarArchivo} from './fragment.ts';
- import {reconstruirArchivo} from './fragment.ts'; 	
+ import {reconstruirArchivo} from './reconstruct.ts'; 	
 
  /*Files for utility(archivos a utilizar) */
   const orginalPathFile = 'nombreArchivo.pdf';

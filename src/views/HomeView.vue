@@ -7,7 +7,7 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from '@/components/HelloWorld(vue_origin).vue'
 
 export default {
   name: 'HomeView',
@@ -15,4 +15,11 @@ export default {
     HelloWorld
   }
 }
+/*A Recordar: Fueron unificados 2 scripts: El store del perfil del profesro optimizado y el servicio de Primer uso
+(Empty-Sym[Sistema-Vacio], por lo que genera errores en cosola, unicamente modificar la ruta
+  Features new Adding:
+     Fondo Obscuro
+     Atajos de Teclado
+     Notificaciones tpo Toast 
+*/
 </script>

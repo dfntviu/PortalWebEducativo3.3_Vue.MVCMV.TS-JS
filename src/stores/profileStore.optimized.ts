@@ -1,13 +1,13 @@
 /* se remplazara, en  lugar de profileStore, ademas se aniadira las funciones faltantes,
   del store base profileStore -->*/
   import { defineStore } from 'pinia';
-  import type  {Profile} from '@/types';
+  import type  {ProfesorUser} from '@/types/interf.index.ts';
   import { ProfileStudentService } from '@/Services/ProfileStudentServ.ts'
   import {ProfileTeachersService } from '@/Services/ProfileTeacherServ.ts'
 
- const useProfileStore = defineStore('profiles', {
+ export const useProfileStore = defineStore('profiles', {
     state: () => ({
-               profile:  null as Profile | null,
+               profile:  null as ProfesorUser | null,
               typeUser: null as {uid: string; name?:string; role: 'alumno'| 'profesor'} | null,
               loading: false,
                 error: '' as string,
@@ -19,49 +19,160 @@
                  apellido: '',
                  email: '',
                  role: 'alumno',
-            } as Partial <Profile>, //todas las props son opcionales
+            } as Partial <ProfesorUser>, //todas las props son opcionales 
     }),
-
+    
     actions: {
-        /*-------------------------------------------------
-           1. Metodo que determina que tipo de perfil most
-         --------------------------------------------------*/
-        async fetchProfiles(userId: string){
-             if (!userId) return null;
-              this.loading = true;
-              this.error = '';
-              // this.loading = true;
+    
+        /**  ** ** ** *
+         *  Guarda el Perfil segun el Rol 
+         *   ** ** ** */
+        async saveProfileByRole(userId: string, data: Partial<ProfesorUser>){
+            this.loading = true;
+            this.error = '';
 
-                try{
-                    // Obtener el perfil del Alumno
-                    const perfilR1 = await ProfileStudentService.getStudentById(userId);
-                    if(perfilR1){
-                       this.profile = perfilR1;
-                       this.typeUser = {uid: perfilR1.uid_alumno, name: perfilR1.name,  email: perfilR1.email, role: 'alumno'};
-                            this.message = 'El perfil del Alumno fue cargado con exito';
-                        return perfilR1;
-                    }   
-                        // Obtener el perfil del Profesor
-                     let perfilR2 = await ProfileTeachersService.getTeacherById(userId);  
-                    if(perfilR2){
-                        this.profile = perfilR2;
-                        this.typeUser = perfilR2 = {uid: perfilR2.uid_alumno, name: perfilR2.name,  email: perfilR2.email, role: 'profesor'};  
-                        this.message = 'El perfil del Profesor fue cargado con exito'
-                        return perfilR2; 
-                    }
-                    this.profile = null;
-                    this.typeUser = null;
-                     this.message = 'No existe la cuenta, con el perfil asociado';
-                     return null;
-                }catch(err: any){
-                  this.error = err.message ?? 'Error al obtener el perfil';
-                  console.error('Error en el metodo: fetchProfiles',err);
-                  return null;
-                }finally{
-                  this.loading = false;
-                }
+            try{
+                const role = data.role || data.area;
+
+                if (!role) {
+                    throw new Error('El rol no ha sido definido');
+                }   
+                    // Preparar form basico
+                const profileData = {
+                    uid_alumno: userId,
+                    nombre: data.name || '',
+                    apellido: data.lname ||'',
+                    email: data.email || '',
+                    numCuenta:data.numCuenta || '',
+                    area: data.area || '',
+                    role: role as 'alumno' | 'profesor',
+                };
+
+                console.log(`[Estado] Guardando Perfil de ${role} en: `, profileData);
+
+                // Invocar servicio corresp segun sea el rol
+                 if (role === 'profesor') {
+                    await ProfileTeachersService.saveTeacherProfile(profileData);
+                 }else if (role === 'alumno') {
+                    await ProfileTeachersService.saveStudentProfile(profileData);
+                 } else {
+                    throw new Error(`Rol no reconocido: ${role}`);
+                 }
+
+                 console.log(`[Store] Perfil de ${role} guardado en Firestore`);
+            }catch(err: any){
+                this.error = err?.message ?? `Error al guardar el perfil`;
+                console.error('[Store] Error en saveProfileByRole:', err);
+                throw err;
+            } finally {
+                this.loading = false;
+            }
         },
 
+        /*----------------------------------------------
+           1. Cargar el Perfil segun corresponda el Rol
+         -----------------------------------------------*/
+        async fetchPerfileByRole(userId: string, role: 'alumno' | 'profesor'){
+            try{
+                console.log(`[Estado] Cargando Perfil de ${role}: `,userId);
+
+                let profile: ProfesorUser | null = null;
+
+                if (role === 'alumno') {
+                  profile = await ProfileStudentService.getStudentById(userId);
+                }else if (role === 'profesor') {
+                    profile = await ProfileTeachersService.getTeacherById(userId);
+                }
+
+                if (profile) {
+                    this.profile =  Profile;
+                    this.typeUser = {
+                        uid: userId,
+                        name: profile.name,
+                        role: role
+                    };
+                    console.log('[Store] Perfil cargado en estado:', this.profile);
+                }
+
+            }catch(err: any){
+                this.error = err?.message ?? 'Error al cargar el perfil';
+                console.error('[Store] Error en fetchProfileByRole:', err);
+                throw err;
+            }
+        },
+
+         async saveStudentStProfile(userId: string,data: Partial<StudentUser>){
+            return this.saveProfileByRole(userId, {...data, role:'alumno'});
+         },
+
+          async saveTeacherStProfile(userId: string,data: Partial<ProfesorUser>){
+             return this.saveProfileByRole(userId, {...data, role:'profesor'});
+          },
+         /*-----------------------------
+           // 1. Registro Tradicional
+         -----------------------------*/
+        async registerTradicional(data: Partial<ProfesorUser> & {password: string; role: 'alumno' | 'profesor'}){
+                console.warn('===Advisementent====='); 
+             this.error = '';
+             this.message = '';
+             this.loading = true;
+             // console.log('Object ◘ Interface[',this.ProfesorUser,']');
+             console.log('Nombre - User_Profesor-Nombre: ', data.name);
+             console.log('Apellido - User_Prof/apellido: ', data.lname);
+             console.log('Apellido - User_Prof/apellido: ', data.email);
+             // console.log('Interface Usuario_Profesor: ', JSON.stringify(data, null, 2));
+
+             
+             try{ 
+                if (!data.email || !data.password  || !data.name)
+                    // console.log('PWD = ',data.password,'Correo =',data.email, 'Rol =',data.role);
+                     throw new Error('Completa todos los campos requeridos (nombre, correo y contraseña).');
+                   // console.log('PWD = ', data.password, 'Correo =', data.email);
+                if (!data.role) {
+                    throw new Error('Debes seleccionar un rol(alumno o profesor).');
+                }
+                  // console.log(`Store Iniciando registro como: ${data.role}: `,data.email);
+                console.log(`Email de Profesor: [${data.email}] `);
+                console.log(`Contraseña de Profesor: [${data.password}] `);
+                 const creadetUser = await this.createUser(data.email, data.password);
+                 
+                    // console.log('Inf. de creacion ', creadetUser);
+
+                 if (!creadetUser || !creadetUser.uid) 
+                    throw new Error('Error: no se obtuvo el identificador del registro');
+
+                  const userId = creadetUser.uid;
+                    console.log(`[Store] Usuario creado con UID:`, userId);
+
+                    // Guardamos el perfil segun corresp role
+                    await this.saveProfileByRole(userId,data);
+                  
+                   console.log(`[Store]: Perfil de - ${data.role} guardado exitosamente`);
+
+                    await this.fetchPerfileByRole(userId, data.role);
+
+                  this.message = `Registro completado con el perfil: ${data.role} satisfactoriamente`;
+
+                   return creadetUser;
+                  /*await ProfileStudentService.saveStudentProfile({ ...data, uid_alumno: userId, });*/
+                  
+             }catch(err: any){
+                this.error = err.message || 'Error al registrar el usuario.';
+                 console.error('[Store] Error en registerTradicional:', err);
+                  throw err;
+             }finally{
+                this.loading = false;
+            }
+        },
+
+            async createUser(email: string, password: string){
+                try{
+                    return await ProfileTeachersService.creadedUserWithEmail(email, password);
+                }catch(err:any){
+                    throw new Error(`Error al crear usuario: ${err.message}`);
+                }
+            },
+        
         /* 
         --------------------------------------------------------------------------------------
           3. Guardar o actualizar registro por medio del perfil Social
@@ -107,69 +218,7 @@
                 this.loading = false;
             }
         },
-
-        async saveStudentProfile(userId: string, data: Partial<Profile>){
-          this.loading = true;
-          this.error = '';
-           
-            try{
-              await ProfileStudentService.saveStudentProfile({...data,uid_alumno:userId} as any);
-                // actualizar el est local.
-               this.fetchProfiles(userId);
-            }catch(err: any){
-                  this.error = err?.message ?? 'Error al guardar el perfil del Alumno';
-                  throw err;
-            }finally{
-                  this.loading = false;
-            }
-        },
-
-        async saveTeacherProfile(userId: string, data: Partial<Profile>){
-            this.loading = true;
-              this.error = '';
-           
-           try{
-              await ProfileStudentService.saveTeacherProfile({...data,uid_profesor:userId} as any);
-                // actualizar el est local.
-               this.fetchProfiles(userId);
-            }catch(err: any){
-              this.error = err?.message ?? 'Error al guardar el perfil del Profesor';
-              throw err;
-            }finally{
-              this.loading = false;
-            }
-        },
-
-        /*-----------------------------
-        // 1. Registro Tradicional
-        -----------------------------*/
-        async registerTradicional(data: Profile & {password: string}){
-             this.error = '';
-             this.message = '';
-             this.loading = true;
-
-             try{
-                if (!data.email || !data.password || !data.name)
-                     throw new Error('Completa todos los campos requeridos (nombre, correo y contraseña).');
-
-                 const creadetUser = ProfileStudentService.creadetUserWithEmail(data.email, data.password);
-
-                 if (!creadetUser || !creadetUser.uid) 
-                    throw new Error('Error: no se obtuvo el identificador del registro');
-
-                  const userId = creadetUser.uid;
-                  
-                  await ProfileStudentService.saveStudentProfile({
-                     ...data,
-                     uid_alumno: userId,
-                  });
-                  this.message = 'Registro completado y perfil guardado satisfactoriamente';
-             }catch(err: any){
-                this.error = err.message || 'Error al registrar el usuario.';
-             }finally{
-                this.loading = false;
-            }
-        },
+        
 
         /*-------------------------------
         // 2. Iniciar Sesion con Facebook
@@ -238,7 +287,6 @@
            try{
              if (this.typeUser?.role === 'alumno') {
                await ProfileStudentService.updateStudentProfile(userId,data as any);
-
              }else if (this.typeUser?.role === 'profesor') {
                  await ProfileStudentService.updateTeacherProfile(userId,data as any);
              }
@@ -297,4 +345,73 @@
            this.error = '';
         } //# end_clear, 
     },
+
+     /*async saveStudentProfile(userId: string, data: Partial<Profile>){
+          this.loading = true;
+          this.error = '';
+           
+            try{
+              await ProfileStudentService.saveStudentProfile({...data,uid_alumno:userId} as any);
+                // actualizar el est local.
+               this.fetchProfiles(userId);
+            }catch(err: any){
+                  this.error = err?.message ?? 'Error al guardar el perfil del Alumno';
+                  throw err;
+            }finally{
+                  this.loading = false;
+            }
+        },
+
+        async saveTeacherProfile(userId: string, data: Partial<Profile>){
+            this.loading = true;
+              this.error = '';
+           
+           try{
+              await ProfileStudentService.saveTeacherProfile({...data,uid_profesor:userId} as any);
+                // actualizar el est local.
+               this.fetchProfiles(userId);
+            }catch(err: any){
+              this.error = err?.message ?? 'Error al guardar el perfil del Profesor';
+              throw err;
+            }finally{
+              this.loading = false;
+            }
+        }, */
+
+        /*async fetchProfiles(userId: string){
+             if (!userId) return null;
+              this.loading = true;
+              this.error = '';
+              // this.loading = true;
+
+                try{
+                    // Obtener el perfil del Alumno
+                    const perfilR1 = await ProfileStudentService.getStudentById(userId);
+                    if(perfilR1){
+                       this.profile = perfilR1;
+                       this.typeUser = {uid: perfilR1.uid_alumno, name: perfilR1.name,  email: perfilR1.email, role: 'alumno'};
+                            this.message = 'El perfil del Alumno fue cargado con exito';
+                        return perfilR1;
+                    }   
+                        // Obtener el perfil del Profesor
+                     let perfilR2 = await ProfileTeachersService.getTeacherById(userId);  
+                    if(perfilR2){
+                        this.profile = perfilR2;
+                        this.typeUser = perfilR2 = {uid: perfilR2.uid_alumno, name: perfilR2.name,  email: perfilR2.email, role: 'profesor'};  
+                        this.message = 'El perfil del Profesor fue cargado con exito'
+                        return perfilR2; 
+                    }
+                    this.profile = null;
+                    this.typeUser = null;
+                     this.message = 'No existe la cuenta, con el perfil asociado';
+                     return null;
+                }catch(err: any){
+                  this.error = err.message ?? 'Error al obtener el perfil';
+                  console.error('Error en el metodo: fetchProfiles',err);
+                  return null;
+                }finally{
+                  this.loading = false;
+                }
+        },*/
+
  });

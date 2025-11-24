@@ -1,6 +1,6 @@
  import { ref } from 'vue';
 
-  function useHighLight(){
+  export function useHighLight(){
   	const estado = ref<"normal" | "destacado" | "nodestacado">("normal");
 
   	function activar(tipo: "destacado" | "nodestacado") {

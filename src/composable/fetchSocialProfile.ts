@@ -1,5 +1,5 @@
 	import {socialUser, socialProfile,error,message,loading, profileStore} from '@/Teacher/views/viewRegisterTeacher';
-
+   /** en duda **/
 	export async function onFetchSocialProfile(provider: 'facebook' |  'google') {
 		  error.value = null;
 		message.value = null;

@@ -16,9 +16,9 @@
 					<option value="">IIA</option> <!--nueva-->
 					<option value="">ISES</option>
 				</select>
-				<input type="text" placeholder="Escribe tú Materia"  v-model="form_edit.subject"> <!-- error2-->
+				<input type="text" placeholder="Escribe tú Materia"  v-model="form_send.materia"> <!-- error2-->
 				<input type="date" placeholder="Selecciona Fecha de Registro" v-model="datosPerfil.fechaDeRegistro"> <!-- error2-->
-				<input type="number" placeholder="Digita tú Edad" v-model="datosPerfil.edad"> <!-- error2-->
+				<input type="number" placeholder="Digita tú Edad" v-model="datosPerfil.age"> <!-- error2-->
 
 				<!-- Lo omiti, enviar informacion al Store(estado) -->
 				<button type="submit">Registrar</button>
@@ -27,22 +27,22 @@
 		</section>
 </template>
 
-<script>
+<script setup lang="ts">
 	import {  ref, computed} from 'vue';
 	import { useProfileStore } from '@/stores/profileStore.rules.arch.ts';
-	import { User, Material } from '@/types/interf.index.ts';
+	import type { MaterialRenovado, User  } from '@/types/interf.index.ts';
 
-	const store = useProfilesStore();
+	const store = useProfileStore();
 	const usuario = ref<User | null >(null);
 
 	// Formulario de Registro
 		const form_send =computed(() =>{
-		      nombre : form.name;
-		    apellido : form.lname;
-		     carrera : form.carrera; // 
-		       curso : form.subject;
-		        edad : form.age;
-		 fechaDeRegistro : form.value.date  // 	     
+		      nombre : name.value;
+		    apellido : lname.value;
+		     carrera : carrera.value; // 
+		       curso : materia.value;
+		        edad : age.value;
+		//  fechaDeRegistro : fecha.value.date  	     
 	    });
 	      // Datos Estructurados que recibe el Store
 		const datosPerfil = computed(()=>({
@@ -54,7 +54,7 @@
 			fechaDeRegistro: form_send.value.date
 		}));
 	
-	export async function registrarAlumno(){
+	async function registrarAlumno(){
 		if (!usuario.value) return;
 		   await store.whyProfileToSave(usuario.value,datosPerfil.value);  //error 5.1
 		 alert('El registro del Alumno ha terminado correctamente');
@@ -64,7 +64,7 @@
 		if (!form_edit.value) {
 		  	 console.error('El Objeto de edición del Alumno no existe');
 		}else{
-		  	  await store.updateStudentProfile(usuario.value, Material);
+		  	  await store.updateStudentProfile(usuario.value, MaterialRenovado);
 		}
 	}
 	// Todo se sumariza a que la lógica del componente actual. Si es posible refactorizarse aun mas

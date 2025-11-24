@@ -4,15 +4,15 @@
     <section v-for="(mat,ix_mat) in tipo_respuesta" :key="autorizados" class="mats_aprobados"
            :class="{habilitar_mode: modoModeracion === 'mats_aprobados'} ">
             
-          <input type="text" placeholder="Uuid del Alumno" v-model="form_recibe.uid_alumno">
-           <input type="text" placeholder="Apellido del Alumno" v-model="form_recibe.lname">
-           <input type="text" placeholder="Titulo del Material" v-model="form_recibe.titulo">
+          <input type="text" placeholder="Uuid del Alumno" v-model="form_send.uid_alumno">
+           <input type="text" placeholder="Apellido del Alumno" v-model="form_send.lname">
+           <input type="text" placeholder="Titulo del Material" v-model="form_send.titulo">
 
            <textarea placeholder="Cargando el contenido del Material..."
-            v-model="form_recibe.contenido"> </textarea>  
+            v-model="form_send.contenido"> </textarea>  
 
-            <input type="date" placeholder="Fecha de Carga" v-model="form_recibe.fecha_actual">
-            <input type="text" placeholder="Uuid del Material" v-model="form_recibe.uid_material">
+            <input type="date" placeholder="Fecha de Carga" v-model="form_send.fecha_actual">
+            <input type="text" placeholder="Uuid del Material" v-model="form_send.uid_material">
            
    <button type="submit" @click="listadoMtAprobados">Materiales Aprobados</button>
     </section>
@@ -21,15 +21,15 @@
     <section v-for="(mat,ix_mat) in tipo_respuesta" :key="no_autorizados" class="mats_rechazados"
            :class="{habilitar_mode: modoModeracion === 'mats_rechazados'} ">
             
-          <input type="text" placeholder="Uuid del Alumno" v-model="form_recibe.uid_alumno">
-           <input type="text" placeholder="Apellido del Alumno" v-model="form_recibe.lname">
-           <input type="text" placeholder="Titulo del Material" v-model="form_recibe.titulo">
+          <input type="text" placeholder="Uuid del Alumno" v-model="form_send.uid_alumno">
+           <input type="text" placeholder="Apellido del Alumno" v-model="form_send.lname">
+           <input type="text" placeholder="Titulo del Material" v-model="form_send.titulo">
 
            <textarea placeholder="Cargando el contenido del Material..."
-            v-model="form_recibe.contenido"> </textarea>  
+            v-model="form_send.contenido"> </textarea>  
 
-            <input type="date" placeholder="Fecha de Carga" v-model="form_recibe.fecha_actual">
-            <input type="text" placeholder="Uuid del Material" v-model="form_recibe.uid_material">
+            <input type="date" placeholder="Fecha de Carga" v-model="form_send.fecha_actual">
+            <input type="text" placeholder="Uuid del Material" v-model="form_send.uid_material">
               <button type="submit" @click="listadoMtRechazados">Materiales Rechazados</button>
     </section>
 
@@ -37,22 +37,22 @@
     <section v-for="(mat,ix_mat) in alls" :key="'?'" class="all_mats"
            :class="{habilitar_mode: modoModeracion === 'all_mats'} ">
             
-          <input type="text" placeholder="Uuid del Alumno" v-model="form_recibe.uid_alumno">
-           <input type="text" placeholder="Apellido del Alumno" v-model="form_recibe.lname">
-           <input type="text" placeholder="Titulo del Material" v-model="form_recibe.titulo">
+          <input type="text" placeholder="Uuid del Alumno" v-model="form_send.uid_alumno">
+           <input type="text" placeholder="Apellido del Alumno" v-model="form_send.lname">
+           <input type="text" placeholder="Titulo del Material" v-model="form_send.titulo">
 
            <textarea placeholder="Cargando el contenido del Material..."
-            v-model="form_recibe.contenido"> </textarea>  
+            v-model="form_send.contenido"> </textarea>  
 
-            <input type="date" placeholder="Fecha de Carga" v-model="form_recibe.fecha_actual">
-            <input type="text" placeholder="Uuid del Material" v-model="form_recibe.uid_material">
+            <input type="date" placeholder="Fecha de Carga" v-model="form_send.fecha_actual">
+            <input type="text" placeholder="Uuid del Material" v-model="form_send.uid_material">
               <button type="submit" @click="listadoTodosMateriales">Todos los Materiales</button>
     </section>
   </div>
 </template>
 
-<script setup> 
-   import  { ref } from 'vue';
+<script setup lang="ts"> 
+   import  { ref, onMounted} from 'vue';
    import  { useModerationStore } from '@/stores/moderateStore.ts';
    // import {materialAdmValidations}  from '@/utils/validations.origin/validationsAdminMaterials.js';                         
      // Revisar validacion y verificar en q accion se utilizara
@@ -110,6 +110,10 @@
              console.error('Error al Mostrar todos los Materiales ',e);
           }
       }
+
+      onMounted(async()=>{
+        await listadoMtAprobados();
+      })
 
       // npm install eslint vue-eslint-parser @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-vue --save-dev
 </script>

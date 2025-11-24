@@ -10,18 +10,18 @@
 
 		<section :key="tipoRegistro" class="panel_container">
 			<!-- Rg. Tradicional -->
-			<form  v-if="tipoRegistro === 'tradicional'" @click.prevent="onSumbitTraditional" class="panel panel_tradicion">
+			<form  v-if="tipoRegistro === 'tradicional'" @submit.prevent="onSumbitTraditional" class="panel panel_tradicion">
 			 <h3>Registro del Profesor</h3>
-			   <input 	v-model="tradicional.nombre"	 placeholder="Escriba su Nombre"   required>
-			   <input 	v-model="tradicional.apellido"	 placeholder="Escriba su Apellido"  required> 
+			   <input 	v-model="tradicional.name"	 placeholder="Escriba su Nombre"   required>
+			   <input 	v-model="tradicional.lname"	 placeholder="Escriba su Apellido"  required> 
 			   <input 	v-model="tradicional.email"	type="email" placeholder="Escriba su Correo institucional" required>
 			   <input 	v-model="tradicional.password"	type="password" placeholder="Escriba su Contraseña"required >
 				<div class="academico">
 					<input v-model="tradicional.numCuenta" placeholder="Esc. su Numero de Cuenta" type="text">
 					<input v-model="tradicional.area"  placeholder="Esc. El Área académica " type="text">
 					<select  v-model="tradicional.role">
-						<option value="alumno"></option>
-						<option value="profesor"></option>
+						<option value="alumno">Alumno</option>
+						<option value="profesor">Profesor</option>
 					</select>
 				</div>
 				 <button :disabled="store_profile.loading">Registrar</button>
@@ -46,7 +46,7 @@
 			<form @sumbit.prevent="onSubmitProfile" class="panel_edicion">
 				<h3>Perfil del Profesor</h3>
 				<input v-model="localProfile.name" type="text"  placeholder="Nuevo Nombre">
-				<input v-model="localProfile.apellido" type="text" placeholder="Nuevo Apellido" >
+				<input v-model="localProfile.lname" type="text" placeholder="Nuevo Apellido" >
 				<input v-model="localProfile.email" type="email" placeholder="Nuevo Correo institucional" >
 				<div class="academico">
 					<input v-model="localProfile.numCuenta" type="text">
@@ -72,26 +72,28 @@
 
 <script setup lang="ts">
 	import	{ref,reactive, watchEffect, onMounted} from 'vue';
-	import { useAuthStore   } from '@/stores/authStore';
-  import { useProfileStore} from '@/stores/profileStore.optimized.ts';
+	import	{useRouter} from 'vue-router';
+	import { useAuthStore   } from '@/stores/authStore.ts';
+  import { useProfileStore} from '@/stores/profileStore.optimized.ts'; 
   // import {validacionesProfesores} from '@utils/validacions.origin/validationsFirestoreForm.js';
   // import {validacionesPerfilAlumno} from '@/utils/notifications.origin/validacionsProfileAlumno.js';
 
   // definiton of Stores
   const     authStore = useAuthStore();
   const store_profile = useProfileStore();
-
+  
+  const router = useRouter();
   /*UI State*/
   const tipoRegistro = ref<'tradicional'| 'facebook'|  'google'>('tradicional');
 
   const tradicional = reactive({
-  	nombre: '',
-  	apellido: '',
+  	name: '',
+  	lname: '',
   	email: '',
   	password: '',
   	numCuenta: '',
   	area: '',
-  	role: 'profesor' |'alumno' | ('profesor')
+  	role: 'profesor' as 'profesor' | 'alumno',
   });
 
   // local identico a la declaracion de atributos de la firestore
@@ -118,10 +120,10 @@
   	});
 
   	// --------------------------------Cycle de V:WEffect se dispara automaticamente sin botón visible-------------------------------------
-  	// Observa authStore.user y store_profile.socialUser, cuando user.uid intenta guardar el perfil
+  	  // ## Observa authStore.user y store_profile.socialUser, cuando user.uid intenta guardar el perfil ##
   	 let autoSaving = false;   //bandera, p/evitar reentradas
 
-  	 watchEffect(async ()=>{
+  	watchEffect(async ()=>{
   	 	const currentUser = authStore.user;
 
   	 	if (!currentUser?.uid) return;
@@ -134,7 +136,7 @@
   	 	try{
   	 		// si viene de login social (store_profile.socialUser) se iniciara dicho provider
   	 		const providerData = currentUser.providerData?.[0]?.providerId ?? null;
-  	 		  const provider = providerData === 'google.com' ? 'gmail' : providerData === 'facebook.com' ? 'facebook' : 'tradicional';
+  	 		    const provider = providerData === 'google.com' ? 'gmail' : providerData === 'facebook.com' ? 'facebook' : 'tradicional';
 
   	 		 // Obtener el payload desde local o el formulario, o bien socialProfile
   	 		 let payload: any = {};
@@ -164,37 +166,50 @@
   	 	}finally{
   	 		autoSaving = false;
   	 	}
-  	 });
+  	});
 
   	 // --------------------------------Manejador para UI(delega al store) -------------------------------------
-  	 async function onSumbitTraditional() {
+  	async function onSumbitTraditional() {
+  		console.log('[Vista] Cargando registro del profesor en  la Firestore');
   	 	// Validaciones minimas
-  	 	if (!tradicional.nombre || !tradicional.email || tradicional.password) {
+  	 	if (!tradicional.name || !tradicional.email || !tradicional.password) {
   	 		store_profile.error = 'Completa el nombre, correo y contraseña';
   	 		 return;
   	 	}
 
-  	 	try{
-  	 		const created = await authStore.registerTradicional(tradicional.email, tradicional.password);
-  	 		const     uid = created?.uuid;   // #error_3
-  	 		  if (!uid) throw new Error('Lo sentimos no se creo el usuario (uid):',uid, 'corresp al E-mail:',tradicional.email);
+  	 	if (!tradicional.role){ 
+		  store_profile.error = 'Selecciona un rol';
+		   return;
+		}
+
+  	 	try{  
+  	 		console.log('Logic del Negocio..');
+  	 		 // Recibimos el Objeto completo al Store
+  	 		/*const created = */ await store_profile.registerTradicional(tradicional);
+  	 		   console.log('[Vista] Registro Exitoso, Role Profesor.');
+  	 		
+  	 		const layout_route = tradicional.role === 'profesor' ? '/view-bienvenida-teachers' : '/bienvenida-students';
+  	 			router.push(layout_route);
+  	 		 //const     uid = created?.uuid;    #error_3
+
+		/* if (!uid) throw new Error('Lo sentimos no se creo el usuario (uid):',uid, 'corresp al E-mail:',tradicional.email);
 
   	 		  await store_profile.saveProfile('tradicional', uid,{
-  	 		  	nombre: tradicional.nombre.value,
-				apellido: tradicional.apellido.value,
-				email: tradicional.email.value,
-				numCuenta: tradicional.numCuenta.value,
-				area: tradicional.area.value,
+  	 		  	nombre: tradicional.nombre,
+				apellido: tradicional.apellido,
+				email: tradicional.email,
+				numCuenta: tradicional.numCuenta,
+				area: tradicional.area,
 				role: tradicional.role,
-  	 		  });  // el antepenultimo y el penultimo del payload, el ultimo de la f(n)
+  	 		  });    // el antepenultimo y el penultimo del payload, el ultimo de la f(n)
 
-  	 		  await store_profile.fetchProfiles(uid);	
+  	 		  await store_profile.fetchProfiles(uid);	*/
   	 	}catch(err: any){
   	 		store_profile.error = err?.message || 'Error: En el registro desde Formulario';
   	 	}
-  	 }
+  	}
   	 
-  	 async function onSubmitProfile() {
+  	async function onSubmitProfile() {
   	 	const uid = store_profile.typeUser?.uid; 
   	 	 if (!uid) return;
 

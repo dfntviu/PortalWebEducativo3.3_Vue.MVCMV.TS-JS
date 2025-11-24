@@ -1,13 +1,14 @@
   import { collection, query,where , orderBy, getDocs, limit as limitFn, 
-           TimesStamp, QueryDocumentSnapshot }   from 'firebase/firestore';
+           Timestamp, QueryDocumentSnapshot }   from 'firebase/firestore';  
   import { initializeFirebaseStorage } from '@/public/initializeFirebaseConf';
   import {MaterialRenovado} from '@/types/interf.index.js';
-  
+    //letter t 'minus'
   const { db } = initializeFirebaseStorage();
 
   /*El Viernes pasado*/
-  class MaterialDeployServiceR2 {
+  export class MaterialDeployServiceR2 {
     static get_collectionName = 'materials_loaded';
+    
     private static mapDocToMaterial(doc:QueryDocumentSnapshot): MaterialRenovado {
         const data: any = doc.data();
           let fecha: Date | null;
@@ -33,8 +34,8 @@
            *                             HELPERS [ Explication for Helpers ]
            * ===================== ===================== ===================== =====================  */
           /* Helper: Convierte Date -> Firestore Timestamp*/
-            private static toTimeStamp(d: Date): TimesStamp {
-                return TimesStamp.fromDate(d);
+            private static toTimeStamp(d: Date): Timestamp {
+                return Timestamp.fromDate(d);
             }
               /** Helper genérico: rango[inicio(start) , fin(end)] (inclusive) **/
             static async getMaterialByDateRange(start: Date, end: Date): Promise<MaterialRenovado[]>{

@@ -1,19 +1,50 @@
 
-import {updatePassword,reauthenticateWithCredential,EmailAuthProvider} from 'firebase/auth';
-import { initializateFireabaseStg } from '@/public/initializeFirebaseConf.js';
+import {updatePassword,reauthenticateWithCredential,EmailAuthProvider} from 'firebase/auth'; 
+import { initializeFirebaseStorage } from '@/public/initializeFirebaseConf.js';
  import {SearchMaterial} from '@/components/SearchMaterials.vue';/*Nuevo metodo de componente de Busqueda*/
-import  {AuthService} from '@/services/AuthService.ts'; /*servicios  p/cargar el perfil del usuario */
-import { getAuth, signInWithPopup, FacebookAuthProvider} from  'firebase/auth'; //libreria para FB
+import  {AuthService} from '@/services/AuthService2.ts'; /*servicios  p/cargar el perfil del usuario */
+import { getAuth, createUserWithEmailAndPassword,signInWithPopup, FacebookAuthProvider} from  'firebase/auth'; //libreria para FB
+import {getFirestore,doc,collection, setDoc, getDoc, query, where, getDocs} from 'firebase/firestore';  
 import  {ProfileTeachersService} from '@/services/ProfileTeacherServ.ts';
 /* End_servs loadUser*/
- import type Profile from '@/types/interf.index.ts'
-
-const { db } = initializateFireabaseStorage();
+ import type {Profile, ProfesorUser} from '@/types/interf.index.ts'
+  
+const { db } = initializeFirebaseStorage();  
 
 export class ProfileStudentService {
-  static collectionName = 'register_alumnos';
-    /*a revisar, sino solo al role alumno.*/
-  static async getStudentById(id: string,role:'alumno') {
+  static collectionNameR1 = 'form_students-register';
+    
+    /*Obtiene el PERFIL Del Alumno.*/
+  static async getStudentById(uid: string): Promise< Profile | null> {
+    try {
+       this.db = getFirestore();
+      const docRef = doc(db, this.collectionNameR1, uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()){
+        const data = docSnap.data();
+         return {
+          uid: uid,
+          uid_prof: uid,
+          username: data.email?.split('@')[0] || '',  //** > regex
+          name: data.nombre,
+          lname: data.apellido,
+          email: data.email,
+          role: data.role,
+          autorRole: data.role,
+          numCuenta: data.numCuenta,
+         } as Profile;  // * intfce
+      }; 
+
+        return null;
+        // return { id: docSnap.id, ...docSnap.data() };
+    } catch (error) {
+      console.error('[Servicio - ESTUDIANTE]: Error al obtener alumno', error);
+      throw error;
+    }
+  }
+
+  /*static async getStudentById(id: string,role:'alumno') ->backup-f(n) {
     try {
       const docRef = doc(db, this.collectionName, id);
       const docSnap = await getDoc(docRef);
@@ -23,20 +54,23 @@ export class ProfileStudentService {
       console.error('[ProfileStudentService]: Error al obtener alumno', error);
       throw error;
     }
-  }
+  }*/
 
   static async saveStudentProfile(student: { id?: string; nombre: string; apellido: string; email: string;
                                   carrera: string, curso?: string, edad: number}) {
     try {
-         const docRef = student.id ? doc(db, this.collectionName, student.id) : doc(collection(db, this.collectionName));
+         const docRef = student.id ? doc(db, this.collectionNameR1, student.id) : doc(collection(db, this.collectionName));
             const data = {
-                nombre: student.nombre,
-                apellido: student.apellido,
+                nombre: student.name,
+                apellido: student.lname,
                 email: student.email,
-                carrera: student.carrera,
-                curso: student.curso || '',
-                fechaActualizacion: new Date(),
-                edad: student.edad,
+                // carrera: student.carrera,
+                contrasenia: student.password,
+                cuenta: student.numCuenta,
+                area: student.area,
+                rol: student.role,
+                /*fechaActualizacion: new Date(),
+                edad: student.edad,*/
             };
              await setDoc(docRef, data, { merge: true });
               return { id: docRef.id, ...data };
@@ -44,8 +78,35 @@ export class ProfileStudentService {
          console.error('[ProfileStudentService]: Error al guardar perfil de alumno', error);
         throw error;
     }
-  } 
-
+  }
+  /*-------------------------------------------------
+      Crear correo electronico Tradicional [11/11/25]
+    -------------------------------------------------
+  */
+  static async createUserWithEmail(email:string , password:string ){
+    try{
+        console.log('Visitando la f(n)');
+         // 0. Obtener la referencia a Firebase
+        const auth = getAuth();
+        console.log('Inf. del autetificacion: ', auth);
+      console.log()
+        // 1. Metodo para traer la credenciales de firebase
+            const  userCredential = await createUserWithEmailAndPassword(auth,email,password);
+        // 2. Extraer el usuario creado
+            const user = userCredential.user;
+            console.log('Inf. de Primer role1 - Prof: ', user);
+    
+        // 3. Asociar la coleccion con las credenciales(base para profesor)
+            const reference = doc(db,this.collectionNameR1, user.uid)
+              await setDoc(reference, { email: user.email, uid_profesor: user.uid, status: 'active',});
+    
+        // 4. devolver el usuario con la coleccion 
+              return user;
+    }catch(error){
+      console.error('[ProfileTeacherService]: Error al crear usuario de profesor con email y contraseña', error);
+        throw error;
+    }
+  }
   /*------------------------------------------------
       Editar el Perfil del Alumno
     ------------------------------------------------
@@ -82,7 +143,7 @@ export class ProfileStudentService {
     ---------------------------------------*/
   static async getDeleteById(id: string,role:'alumno'){
     try{
-         const docRef = doc(db, this.collectionName, id);
+         const docRef = doc(db, this.collectionNameR1, id);
          // Obt. el perfil
       const docSnapDel = await getDoc(docRef);
 
@@ -104,7 +165,7 @@ export class ProfileStudentService {
   */
   static async getStudentProfile(id:string):Promise<Profile| null>{
      try{
-        const ref = doc(db,this.collectionName,id);
+        const ref = doc(db,this.collectionNameR1,id);
          const snap = await getDoc(ref,data)
            if (docSnap.exists()) {
              return snap.data() as Profile;
@@ -194,18 +255,18 @@ export class ProfileStudentService {
   }
   /*Prop: Traer cualquier rol que inicie sesion y animarlo desde el componente ->'WelcomeUsers' >> Metodo-Animado-2 */
     static async loadUserProfile(email:string, password:string, role: 'alumno' |'profesor'){
-      const loggin = await AuthService.login(email,passwd);
+      const loggin = await AuthService.login(email,password);
       try{
-        if(!login){
+        if(!loggin){
            throw new Error(`No fue posible autenticar el Correo-Electrónico ${email}`);
         }
 
         /*2. Obtener los datos del usuario segun correponda el rol*/
-         let curent_user;
+         let curent_user = this.ProfesorUser | null;
            if (role=== 'alumno') {
-               curent_user = await this.getDataPorCorreo(email);
+                curent_user = await this.getDataPorCorreo2(email);
            }else if(role=== 'profesor'){
-                curent_user = await ProfileTeachersService.getDataPorCorreo(email);
+               curent_user = await this.getDataPorCorreo(email);
            }
             // Todo lo que no pertenezca a la reglas de asociacion de los roles
            if (!user_current) {
@@ -217,15 +278,59 @@ export class ProfileStudentService {
 
            /*4. Construi una respuesta uniforme*/
             return {
-              email: curent_user.email,
               nombre: profile.nombre,
               apellido: profile.apellido,
-               fullName: `${profile.nombre}+${ profile.apellido}`,
-               role
+              email: curent_user.email,
+               // fullName: `${profile.nombre}+${ profile.apellido}`,
+               role:role,
             };
         }catch(error) {
             console.error('[UserProfileService]: Error al cargar el perfil', error);
              throw error;
         }
+    }
+
+    // Metodo nuevo [15/11/2025]
+
+       // Obtienen los datos del profesor por el correo Electroncio
+      static async getDataPorCorreo(email: string): Promise<ProfesorUser| null> {
+        try{
+           if (!email  || email.value.trim()) {
+             throw new Error('El Correo electrónico, requerido');
+           }
+
+           const profesoresRef = collection(db, 'registro_profesores');
+           const q = query(profesoresRef, where('email', '==', email.value.toLowerCase().trim()));
+           const querySnap = await getDocs(q);
+
+
+           if (querySnap.empty) {
+              console.warn(`[ProfileTeachersService]: No se encontró profesor con email: ${email}`);
+           }
+            // no puede buscar un correo que apenas fue registrado, entonces añadir esta f(n) a otra interaccion p/q desp que la agregue lo obtenga
+           const docSnap = querySnap.docs[0];
+           const data = docSnap.data();
+           const uid = docSnap.id;  //id de la coleccion
+
+            return {
+               uid: uid,
+               uid_prof: uid,
+               username: data.email?.split('@')[0] || '', 
+              name: data.nombre,
+               lname: data.apellido,
+               email: data.email,
+               role: data.role,
+               autorRole: data.role,
+               numCuenta: data.numCuenta,
+               area: data.area,
+            }  as ProfesorUser;
+        }catch (error) {
+          console.error('[ProfileTeachersService]: Error al obtener profesor por correo', error);
+          throw new Error(`No fue posible obtener los datos del profesor: ${error.message}`);
+        }
+    }
+
+    static async getDataPorCorreo2(){
+      console.log('Construyendo...');
     }
 }

@@ -1,4 +1,4 @@
-import { collection, doc,docs, getDocs, setDoc, deleteDoc } from 'firebase/firestore';
+import { collection, doc,docs, getDocs, setDoc,getFirestore, deleteDoc } from 'firebase/firestore';
 import { getStorage, ref,uploadBytes, getDownloadURL} from 'firebase/storage'; /*alm archivo en firestorage **/ 
 import { initializeFirebaseStorage } from '@/public/initializeFirebaseConf'; 
   import {Material} from '@/types/interf.index.js';  //script de interfaces
@@ -87,15 +87,55 @@ const { db } = initializeFirebaseStorage();
             throw error;
         }
     }
-
-    static async deleteMaterialsEduc(material: string ){
+    /**  === [22/Nov/2025] ===
+     *   Eliminar parcialmente el material 
+     *   Elimina del Portal W. Educativo
+     * */
+    static async deleteMaterialsEduc(materialId: string ){
       try{
-           await deleteDoc(doc(db,this.collectionName,id));
+           await deleteDoc(doc(this.db,this.collectionName,id));
+           console.log(`Material ${materialId} eliminado del Portal`)
         }catch(error){
-             console.error('[MaterialDeployService]: Error al borrar el material', error);
+             console.error('[MaterialDeployService]:❌ Error al borrar del Portal', error);
               throw error;
         }
     }
+
+    /**  === [22/Nov/2025] ===
+     * Eliminar permanentemente el material 
+     *  ⚠️ Elimina del Backed [USAR con Precauccion]
+     * */
+    static async hardDeleteMaterial(materialId: String): Promise<void>{
+       try{
+            const firebaseDb = getFirestore();
+             await deleteDoc(doc(firebaseDb, this.collectionName, materialId));
+              
+              console.warn('[MaterialService] ✅ Material eliminado permanetemente');
+
+       }catch(error){
+            console.error('MaterialFirebaseDB ❌ Error al borrar en Firestore', error);
+            throw error;
+       }
+    }
+      /** === [22/Nov/2025] ===
+       *  F(n) Intermedia que efecuta la alternancia entre los tipos de eliminacion*/
+      static async deleteMaterialEveryWhere(materialId: string): Promise<void>{
+          try{
+             const role = 'teacher' | 'admin';
+                  
+              if (role==='teacher') {
+                  // Borra solo del Sistema
+                  await this.deleteMaterialsEduc(materialId);
+              }else if (role==='student') {}{
+                 // Borra tanto del Sistema como de Firestore
+                 await this.hardDeleteMaterial(materialId);
+              }
+              console.log(`✔ Material ${materialId} eliminado respectivamente de: ${role}`);
+          }catch(error){
+               console.error('[MaterialService] ❌ Error en eliminación por Rol: ', error);
+                  throw error;
+          }
+      }
     // -> [trasladado 29/09/25]
     /*  Cambiarlo traer logica de Firbease, revisar muy bien el componente origen
        que esta como action(de pinia) en la version de prototipado */

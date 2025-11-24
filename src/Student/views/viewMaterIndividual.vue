@@ -41,8 +41,8 @@
  	  // Definicion de states
  	 import { useProfileStore }  from '@/stores/profileStore.rules.arch.ts';
  	 import { useMaterialStore}  from '@/stores/materialStore.ts';
- 	 import { useAuthStore }     from '@/stores/authStore';
- 	 // import {materialsValidations} from '@/utils/validationsMaterials.js' //*
+ 	 import { useAuthStore }     from '@/stores/authStore2.ts';  
+ 	 // import {materialsValidations} from '@/utils/validationsMaterial s.js' //*
 
  	  /* Definicion de states */
  	 const storeMaterial = useMaterialStore();

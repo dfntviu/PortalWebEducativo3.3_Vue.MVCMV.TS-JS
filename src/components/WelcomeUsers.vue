@@ -23,6 +23,8 @@
 			apellido : '',
 			carrera : '',  
 	        role : 'alumno' as 'alumno' | 'profesor', // profesor es predeterminado
+	        fullName: `Bienvenido${nombre} ${apellido}`,
+
 		});
 		// Definicion de las props del componente hijo
 		const props = defineProps({
@@ -33,12 +35,12 @@
 		});
 
 	    async function seeWelcomeTextRole(email: string, password: string, role: 'alumno' | 'profesor'){
-	   	    try{
-	   	    	   	 /* Se consume el servicio para  carga el Perfil del Estudiante*/		
+	   	    try{ console.log('Inicianto Visita al componente Bienv ');
+	   	    	   	 /* Consumir el servicio para  cargar el Perfil del correpondiente*/		
 	   	    	  const loaded_profile =  await ProfileStudentService.loadUserProfile(email,password,role);
-	   	    	
-	   	    	// Asignar los valores del perfil cargado al objeto profile1
-	   		            profile1 = {
+	   	    		console.log('Carga de Usuario Correcta, visita terminada.Perfiles: ', loaded_profile);
+	   	    	// Asignar los valores del perfil cargado al objeto profile1	
+	   		            profile1.value = {
 	   		    	   	     name :  loaded_profile.name.value || '',
 	   		    	     apellido :  loaded_profile.apellido.value || '' ,
 	   		    	   	  carrera :  loaded_profile.carrera.value || '',
@@ -52,7 +54,7 @@
 	    }
 
 	    onMounted(()=>{
-	   	  seeWelcomeTextRole('correo@ejemplo.com','54321', props.role );
+	   	  seeWelcomeTextRole('','');
 	    });
 
 </script>

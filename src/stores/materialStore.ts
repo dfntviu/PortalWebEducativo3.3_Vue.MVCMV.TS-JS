@@ -2,7 +2,7 @@
  import { MaterialDeployService } from '@/services/MaterialAdmServAlumno.ts';
   import type {Material} from '@/types';
         // Darle una pasada al DeployService y la vista  viewMaterials_MatStore -> viewMethodsMaterials, abrir vista en siguiente de unitled
-    const useMaterialStore = defineStore('material', {
+    export const useMaterialStore = defineStore('material', {
    	    state: () => ({
    	   	 materials: [] as Material[],
    	   	 loading: false,

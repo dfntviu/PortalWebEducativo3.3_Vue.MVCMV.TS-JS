@@ -16,19 +16,26 @@
       autor: Profile;  
     }
   
-  interface User {
-  	 uid: string;
-     username: string; //new a condition
-  	 name: string
-  	 email: string
-  	 role?: "alumno" | "profesor" | "admin";
-      // role?: string;  error
-  }
-    // Profile del Estudiante/Profesor se extiende dese User
-  interface Profile extends User {
-      uid_prof: string;
-     autorRole: "alumno" | "profesor";
-  }
+  interface AlumnoUser {
+      name: string;
+     lname: string;
+     email: string;
+     password: string;
+     numCuenta: string;
+     username: string; 
+      role: "alumno";
+   }
+
+  export interface ProfesorUser {
+      name: string;
+     lname: string;
+     email: string;
+     password: string;
+     numCuenta: string;
+     username: string; 
+      area: string;
+      role: "profesor";
+   }
   
   interface Notification {
   	 id: string;
@@ -66,6 +73,27 @@
      VistaBienvenidaProffesor: boolean;
      VistaBienvenidaAlumno: boolean;
    }
+
+   // export type ProfileRole = AlumnoUser | ProfesorUser
+
+   /*interface BaseUser {
+     name: string;
+     lname: string;
+     email: string;
+     password: string;
+     numCuenta: string;
+     username: string; //new a condition
+     role: "alumno" | "profesor"; /*| "admin";
+  }*/
+
+    // Profile del Estudiante/Profesor se extiende dese User
+   /* interface ProfileUser extends BaseUser {
+      role: "profesor";
+      area: string; // area existe y es Obligatorio de Profesor
+    }*/
+  
+
+
        // # Agregada recientemente, para trabajar entre el conre de aprobacion y relacion engtre amnas entidades(alumno-materiales, sust. por herencia de la Ln.28)
     /*interface Profile {
   	   uid_prof: string;

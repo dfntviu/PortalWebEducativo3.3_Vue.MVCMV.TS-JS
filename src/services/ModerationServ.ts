@@ -1,9 +1,9 @@
 
 import { collection, doc, getDocs, query, where, updateDoc } from 'firebase/firestore';
 import { NotificationsService } from '@/services/NotificationsServ.ts';
-import { initializateFireabaseStg } from '@/config/initializateFirebase.js';
+import { initializeFirebaseStorage } from '@/public/initializeFirebaseConf.js'; 
 
- const { db } = initializateFireabaseStg();
+ const { db } = initializeFirebaseStorage();
 
  export class ModerationService {
  	static collectionName = 'materials_register';
@@ -39,7 +39,7 @@ import { initializateFireabaseStg } from '@/config/initializateFirebase.js';
           const regCollection = collection(db,this.collectionName);
           const snapshot = await getDocs(regCollection);
       	  const pendientes = snapshot.docs.  //?
-      	     map(doc => {doc.id, ...doc.data()}).
+      	     map(doc => {doc.id, doc.data()}).
       	        filter(mat => mat.estado === 'pendiente');
       	          return pendientes;
    }
@@ -48,14 +48,14 @@ import { initializateFireabaseStg } from '@/config/initializateFirebase.js';
        try{
           const docRef = addDoc(collection(db,moderateCommentColl),{
              mensaje, destacado,
-              fecha: serverTimeStamp();
+              fecha: serverTimeStamp(),
           });
 
           return {
              id: docRef.uuid,
              mensaje,
              destacado,
-             fecha: new Date()m
+             fecha: new Date()
           };
        }catch(error){
           console.error("Error al guardar el comentario en la Firestore", error);

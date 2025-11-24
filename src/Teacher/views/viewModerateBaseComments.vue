@@ -11,8 +11,8 @@
 	import {useModerationStore} from '@/stores/moderateStore.ts';
 
 	/*minilibrria de componentes Base*/
-  import {ComentariosActuales}  from '@/components/ComentariosActuales.vue';
-  import {ComentariosDestacados} from '@/components/ComentariosDestacados.vue'; 
+  import ComentariosActuales  from '@/components/ComentariosActuales.vue';
+  import ComentariosDestacados from '@/components/ComentariosDestacados.vue'; 
   // import {materialValidationsNotify} from '@/utils/validations.origin/validationsModerationNotifications.ts';
 	   import type {Material} from '@/types/interf.index.ts';
 

@@ -1,8 +1,8 @@
- import defineStore from 'pinia';
- import { MaterialDeployServiceR2 } from '@/services/MaterialAdmServProffesor.ts' ;
+ import {defineStore} from 'pinia';
+ import { MaterialDeployServiceR2 } from '@/services/MaterialAdmServProffesor.ts';
   import type {Material} from '@/types';
         // Darle una pasada al DeployService y la vista  viewMaterials_MatStore -> viewMethodsMaterials, abrir vista en siguiente de unitled
-    const useMaterialStoreR2 = defineStore('teacher_materials', {
+    export const useMaterialStoreR2 = defineStore('teacher_materials', {
    	    state: () => ({
    	   	 materials: [] as Material[],
    	   	 loading: false,

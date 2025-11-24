@@ -1,10 +1,5 @@
-  import {  ref }            from 'vue';
-  import { useProfileStore } from '@/stores/profileStore.optimized.ts';
-      
-      const store_profile = useProfileStore();
-	    const       usuario = ref<User | null >(null);
+     import {  ref }            from 'vue';
 
-	    
   	// Formulario de Edición
 		const form_edit = ref({
 	 	 	 name: '',
@@ -12,8 +7,8 @@
 	 	 	carrera: '',
 	 	 	subject: '',
 	 	 	  age: 0
-	 	}, actualizacionAlumno());  //a prueba
-	    
+	 	});  //a prueba, quite -> actualizacionAlumno
+	 /** en duda **/   
   export async function composableProfileStudent(){
 
 
@@ -51,4 +46,5 @@
 			 		await deleteProfile();
 			 }
 		}; //End_S
+   
 };

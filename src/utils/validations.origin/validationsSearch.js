@@ -23,7 +23,7 @@
                 return  alumnos.filter(al =>
                                 al.name.toLowerCase().includes(nombre.toLowerCase())
                         );
-        }
+        },
             /**
              *  Buscar coincidencias exactas por Apellido.
                     @param {string} apellido
@@ -37,7 +37,7 @@
                                           return [] ;
                                 }
                                   return alumnos.filter(al => al.lastname.toLowerCase() ==== apellido.toLowerCase());
-            }
+            },
             /**
             *  Valida si un alumno tiene un UUID antes de acceder a sus materiales educs.
                         * @param {string} nombre
@@ -48,7 +48,7 @@
                    if(!alumno || !alumno.uuid)
                           console.error('No fue encontrado el alumno o no tienees el uuid valido');
                             return false;
-            }
+            },
             /**
             *  Control de las coincidencias multiples
                         * @returns {Array} coincidencias
@@ -61,7 +61,7 @@
                 }
                     const terna_coincidencia = coincidencias.length === 1 ? coincidencias[0] : null
                        return terna_coincidencia;
-            }
+            },
             /**
             *  Control de errores para los servicios asincr├│nicos
                         * @returns {Function} fn
@@ -76,7 +76,7 @@
                       console.error('Error al consumir el serv', err.message);
                             return null;
                 }
-            }
+            },
     }
         /** import { searchValidations } from '@/utils/validateBusqueda.js';
 

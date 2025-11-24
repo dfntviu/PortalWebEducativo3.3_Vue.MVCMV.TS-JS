@@ -9,11 +9,11 @@
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-sfc": "^3.5.22",
     "firebase": "^12.4.0",
-    "pinia": "^3.0.3",
-    "vite": "^6.4.1"
+    "pinia": "^3.0.3"
   },
   "dependencies": {
+    "vite": "^6.4.1",
     "vue": "^3.5.22",
-    "vue-router": "^4.0.0"
+    "vue-router": "^4.4.5"
   }
 }

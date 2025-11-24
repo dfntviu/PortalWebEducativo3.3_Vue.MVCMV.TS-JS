@@ -1,8 +1,11 @@
 	import { ProfileStudentService } from '@/Services/ProfileStudentServ.ts';
-	import { MaterialsDeployService } from '@/Services/MaterialAdmServAlumno.ts';  
+	import { MaterialsDeployService } from '@/Services/MaterialAdmServAlumno.ts';
+	import {getFirestore} from 'firebase/firestore';
 	 import type Profile from '@/types/interf.index.ts';
 	 /*El Viernes pasado*/
-  export class adminAllServices {
+  	const { auth,db } = initializeFirebaseStorage();
+
+    export class adminAllServices {
   	static todos_alumnos = 'adm_alumnos_register';
   	
   	static async  adminAlumnos(nombre): Promise <Profile[]>{
@@ -128,8 +131,49 @@
         		throw error;
 	   	    }
 	    }
+
+	    /** ======================================
+	     * [22-Nov-2025]
+	     * Obtiene Estadisticas de los Materiales
+	     * =======================================
+	     * */
+	    static async getStatistics(): Promise <{
+	    	total: number; pending: number;
+	    	approved: number; reajected: number;
+	    }> {
+	    	try{
+	    	 	 console.log('[MaterialServ]📊 Obteniendo Estadistícas..');
+	    	 	 this.db = getFirestore();
+	    	 	 const materialsRef = collection(db, this.todos_alumnos);
+
+	    	 	 /*Obtener todas las Estadisticas en Paralelo*/
+	    	 	 const [allSnapshot, pendingSnapShot, approveSnapshot, reajecteSnapshot] =
+	    	 	    Promise.all([
+	    	 	      await  getDocs(query(materialsRef)),
+	    	 	            getDocs(query(materialsRef, where('status', '==', 'pending'))),
+	    	 	      		getDocs(query(materialsRef, where('status', '==', 'approved'))), 
+	    	 	      		getDocs(query(materialsRef, where('status', '==', 'reajected'))),
+
+	    	 	      	]);
+	    	 	    
+	    	 	    const stats ={
+	    	 	    	total: allSnapshot.size,
+	    	 	    	pending: pendingSnapShot.size,
+	    	 	    	reajected: reajecteSnapshot.size,
+	    	 	    };
+
+	    	 	    console.log(['[Servicio - Materiales] Estadistícas: ',stats]);
+
+	    	 	    return stats;
+	    	 	      	    
+	    	}catch(error: any){
+	    	 	   console.error('[ServicioMaterialesU.]❌ Error en las Estadistícas: ',stats);
+	    	 	    throw error;
+	    	}
+	    }
   		
- }  //#End de la Clase
+    }  //#End de la Clase
+	    
 	    /* Constructor actualizado, utilizado
 	       async getAllStudents(): Promise<Profile[]> {
     		const snapshot = await getDocs(collection(db, 'adm_alumnos_register'));

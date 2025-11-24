@@ -12,8 +12,11 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "outDir": "./dist", //param_new_1
+    "rootDir":"./src",  //param_new_2
     "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
+    "types": ["vite/client"], //new_02
     "paths": {
       "@/*": ["src/*"],
       "@components/*":["./src/components"],
