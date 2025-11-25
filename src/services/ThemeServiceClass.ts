@@ -1,6 +1,6 @@
 	export type Theme = 'light'| 'dark' |'system';
 	
-    class ThemeServiceClass {
+    export class ThemeServiceClass {
 		private readonly STORAGE_KEY = 'portal-orange-theme';
 	 	 private currentTheme: Theme = 'system';
 

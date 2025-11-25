@@ -3,7 +3,7 @@
  import { ShortcutsService} from './ShortcutsService.ts';
   import type {ShortCut} from './ShortcutsService.ts';
 
-   const useShortcutsStore = defineStore('shortcuts', ()=>{
+   export const useShortcutsStore = defineStore('shortcuts', ()=>{
    			// State
    		const showHelp = ref(false);
    		const enabled = ref(false);
@@ -26,7 +26,7 @@
    		 	 ShortcutsService.setEnabled(value);
    		 }
 
-   		 function getShortCuts(scope?:string): ShortCut[] {
+   		 function getShortcuts(scope?:string): ShortCut[] {
    		 	if (scope) {
    		 		return ShortcutsService.getByScope(cope);
    		 	}
