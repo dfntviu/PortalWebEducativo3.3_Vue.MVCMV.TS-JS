@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "dev:refactor": "vite --config vite.config.refactor.ts",
+    "build": "vite build",
+    "build:refactor": "vite build --config vite.config.refactor.ts"
+  }
+}

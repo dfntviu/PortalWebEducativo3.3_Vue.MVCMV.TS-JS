@@ -1,0 +1,178 @@
+# Análisis de Vistas – Versión `src`
+
+## 1. Vistas Actuales
+
+Listado de vistas actualmente presentes en la versión `src` del proyecto:
+
+1. **vModerateBaseComments**
+2. **vStudentsAdmMatls**
+3. **vMaterIndividual**
+4. **vBienvenidaStudents**
+5. **vRegisterTeacher1**
+
+> **Vista no considerada (descartada):**
+
+* **vUploadMaterial** → No incluida en el análisis, ya que se encuentra correctamente diseñada y recientemente mejorada.
+
+---
+
+## 2. Problemas Detectados en las Vistas Actuales
+
+### 2.1 vModerateBaseComments
+
+* Flujo de navegación y lógica difíciles de seguir.
+* Separación de módulos deficiente y mal planificada.
+* La solución conceptual es adecuada, pero la implementación:
+
+  * Fragmenta incorrectamente el desarrollo.
+  * Rompe la plantilla base (vista principal).
+
+**Estado:** Requiere reestructuración del flujo y redefinición clara de responsabilidades.
+
+---
+
+### 2.2 vStudentsAdmMatls
+
+* Implementación limitada a operaciones CRUD básicas.
+* No se invoca el método responsable de la administración de materiales.
+* El título de la vista no corresponde con la funcionalidad desarrollada.
+
+**Estado:** Incongruencia entre intención, nombre y ejecución funcional.
+
+---
+
+### 2.3 vMaterIndividual
+
+* Vista mejor diseñada a nivel conceptual.
+* Planeación alineada con su propósito original.
+* Problema principal:
+
+  * Acumulación excesiva de responsabilidades en una sola función.
+  * Impacto negativo en la presentación del catálogo de materiales por alumno.
+
+**Propuestas de solución:**
+
+* Ajustar el `fetch` desde el Store.
+* Convertir la vista en componente reutilizable.
+* Reducir características a las estrictamente necesarias.
+
+**Estado:** Salvable; debió concebirse originalmente como componente.
+
+---
+
+### 2.4 vBienvenidaStudents
+
+* Lógica limpia y bien estructurada.
+* Correcta aplicación del principio de Separación de Responsabilidades.
+* Animaciones desacopladas e implementadas como componentes independientes.
+
+**Estado:** No requiere correcciones; solo mejoras opcionales.
+
+---
+
+### 2.5 vRegisterTeacher1
+
+* Vista técnicamente sólida y bien diseñada.
+* Problema principal: extensión excesiva.
+
+**Propuestas de mejora:**
+
+* Dividir en dos componentes bien definidos, o
+* Consolidar en un solo componente altamente documentado.
+* Mantener la vista base de registro tradicional separada.
+
+**Estructura sugerida:**
+
+* Componente para tipos de registro.
+* Vista base para registro tradicional.
+
+**Estado:** Totalmente recuperable mediante modularización.
+
+---
+
+## 3. Vistas con Flujo Caótico o No Alcanzables
+
+### 3.1 Vistas Críticas (No Comprensibles)
+
+* **A. vTeacherAdmMatls**
+* **B. vStuentRegisterBase**
+
+#### A. vTeacherAdmMatls
+
+* Vista extremadamente corta.
+* Confusión en el principio de responsabilidades.
+* La lógica reside completamente en el Store.
+* La vista debería limitarse a consumir métodos del Store.
+
+**Estado:** Requiere refactorización profunda.
+
+---
+
+#### B. vStuentRegisterBase
+
+* Carece de estructura funcional clara.
+* No cumple ningún propósito definido.
+
+**Estado:** ❌ Debe reconstruirse desde cero.
+
+---
+
+### 3.2 Vistas Comprensibles pero Mejorables
+
+* **a. vModerarMaterials.sol**
+
+* Interfaz sencilla.
+
+* Cumple su propósito principal.
+
+* Requiere mejoras en organización y claridad de responsabilidades.
+
+**Estado:** Salvable con ajustes menores.
+
+---
+
+## 4. Vistas que Pueden Ajustarse y Recuperarse
+
+### 4.1 Vistas Actuales (1–5)
+
+* Todas son recuperables.
+* Requieren distintos niveles de refactorización.
+* Enfoque recomendado:
+
+  * Modularización.
+  * Reducción de responsabilidades por vista.
+
+### 4.2 Vistas Caóticas Recuperables
+
+* vTeacherAdmMatls
+* vModerarMaterials.sol
+
+### 4.3 Vista Excluida
+
+* **vUploadMaterial**
+
+  * No se contabiliza.
+  * Correctamente diseñada.
+  * Ya fue mejorada.
+
+---
+
+## 5. Conclusión General
+
+* El problema principal es arquitectónico, no técnico:
+
+  * Flujo inconsistente.
+  * Vistas con responsabilidades excesivas.
+  * Falta de distinción clara entre vistas y componentes.
+* El proyecto es altamente recuperable mediante:
+
+  * Refactorización estructural.
+  * Normalización de criterios de diseño.
+
+---
+
+**Siguientes pasos sugeridos:**
+
+* Definir una nueva arquitectura de vistas y componentes.
+* Elaborar un mapa de flujo de navegación.
+* Establecer criterios formales para diferenciar vistas y componentes en Vue.

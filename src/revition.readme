@@ -1,0 +1,66 @@
+ANALISIS DE VISTAS EN LA VERSION SRC
+
+======== VISTAS ACTUALES ===============
+ 1 vModerateBaseComments
+ 2 vStudentsAdmMatls
+ 3 vMaterIndividual
+ 4 vBienvenidaStudents
+ 5 vRegisterTeacher1
+
+  - vUploadMaterial [No]
+ 
+
+=======	PROBLEMAS DETECTADOS CON LAS VISTAS ACTUALES ==============
+ 1 Muy dificil de seguir el flujo, contiene separacion de modulos que
+   no estan bien planificados. La solucion prop. es buena, pero el desarollo
+   parece romperse en la plantilla base(vista).
+
+ 2 Unicamente es la Aplicacion de CRUD, ademas nunca se invoca al metodo para
+ administrar los materiales. El titulo no corresp con el Desarrollo
+ 
+
+ 3 Es la mejor diseniada, demuestra que fue pensada de acuerdo al
+   proposito estitpulado. Si en el cambio la f(n) presenta demasiadas
+   caracteristicas, lo cual afecta la presentacion del catalogo de materiales por Alumno.
+     Solucion
+     -  Ajustar el Fetch del Store
+     -  Posiblemente utilizarse como componente y no como vista. Debio que sus caracterist 
+     son mínimas.
+
+ 4 Presenta logica limpia y bien estructurada, utiliza el principio de separaion de 
+    responsabilidades, y posee animaciones autenticas por separado(como component).
+    No hay nada por corregir, solo si se desea mejorar.
+
+ 5  De todas las vistas, es la que esta mejor diseniada pero es demasiado extensa.
+     Esta podria dividirse en 2  componentes o un solo(muy bien comentado) dependiendo.
+    Tien salvacion pero hace falta inluir la vista original por separado.
+      -> Un componento para tipos registros y  la vista base: Registro tradicional,
+     como vista unica.
+
+====== VISTAS QUE DEMUESTRAN: FLUJO CAOTICO Y NO SON ALCANZABLES ======
+  ///  Vistas que no se entiende en lo minimo//
+    - A. vTeacherAdmMatls
+    - B. vStuentRegisterBase
+
+   /// Son claras, pero no cumplen del todo su proposito //
+    * a. vModerarMaterials.sol
+
+    A. Es una vista muy corta, que parece haberse confundio el 
+    principio de responsabilidades, la idea es bueno pero la sintaxis
+    es incorrecta. Esta vista se maneja por completo en el store,
+    y en la vista unicamente se accede metodo por metodo seg. se necesite
+
+    B. No tiene salvacion, debe crearse desde 0.
+
+    a. Posee una interfaz sencilla, cumple su proposito puede mejorarse.
+
+  ======== VISTAS QUE PUEDEN AJUSTARSE Y SALVARSE ===
+   Vistas (Actuales):
+     De las Vistas Actuales 1 -5
+    Vistas (Caoticas):
+     Vistas: A y a 
+
+    La Vista con ('-'). No se cuenta, esta bien diseñada.
+    Ademas fue mejorada.
+========================================================================================
+   CAMBIOS APLICADOS EN LA VERSION REFACTOR

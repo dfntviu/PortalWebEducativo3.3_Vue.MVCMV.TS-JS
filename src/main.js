@@ -11,6 +11,7 @@ import App from './App.vue'
  const pinia = createPinia();
  const app   = createApp(App);
 
+  // import './assets/styles/main.css'
  // console.log('Pinia antes de usar:' ,pinia)
 
   // Iniciar Ambos modulos 

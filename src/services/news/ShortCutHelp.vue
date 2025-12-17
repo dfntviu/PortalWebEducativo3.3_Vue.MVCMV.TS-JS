@@ -106,7 +106,7 @@
  	 		cats.push({
  	 			name: 'Profesor'
 				icon: '👨🏽‍🏫'
-				hortcuts.allShortcuts.filter(s => s.scope === 'teacher'): 
+				shortcuts.allShortcuts.filter(s => s.scope === 'teacher'): 
  	 		});
  	 	}
 

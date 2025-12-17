@@ -93,10 +93,10 @@
  	}
 
  	  /** =====================================================
- 	  *    Formater el shrotcut(atajo de  teclado) para mostrar
+ 	  *    Formater el shortcut para mostrar
       *   =====================================================
  	  * */
- 	    static matchesShortCut(shortcut: ShortCut): boolean {
+ 	    static formatShortcut(shortcut: ShortCut): boolean {
  	  	   const parts = string[] = [];
  	  	   const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 

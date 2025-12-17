@@ -14,7 +14,7 @@
             <input type="date" placeholder="Fecha de Carga" v-model="form_send.fecha_actual">
             <input type="text" placeholder="Uuid del Material" v-model="form_send.uid_material">
            
-   <button type="submit" @click="listadoMtAprobados">Materiales Aprobados</button>
+     <button type="submit" @click="listadoMtAprobados">Materiales Aprobados</button>
     </section>
 
      <!-- Registro de Materiales Rechazados -->

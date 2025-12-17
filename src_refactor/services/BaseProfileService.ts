@@ -1,0 +1,232 @@
+/**
+ * @service BaseProfileService
+ * @description Servicio base para operaciones CRUD en perfiles de Firestore
+ * @Proposito 
+ * - Eliminar duplicacion entre ProfileStntServ y ProfileTeacherSrv
+ * - Centralizar lógica común de Firestore
+ * - Facilitar el matenimiento(cambia 1, afecta a todos) 
+ * 
+ * Uso:
+ * - Los servicios especifícos(Student/Teacher) delegan a este servicio Base
+ * - Este servicio NO se usa directamente desde stores/vistas
+ * */
+import {  getFirestore,  doc,  setDoc, getDoc, 
+      collection, query, where, getDocs,
+       updateDoc, deleteDoc,serverTimestamp, type Timestamp } from 'firebase/firestore';
+  import type {Profile} from '@/types/interf.index.ts';
+
+  export class BaseProfileService {
+  	/**
+     * Guarda un perfil completo en Firestore
+     * @param collectionName - Nombre de la colección ('students' o 'teachers')
+     * @param uid - ID del usuario (debe coincidir con Firebase Auth)
+     * @param data - Datos del perfil a guardar
+     */
+  	  static async saveProfile(collectionName: 'students' | 'teachers', uid: string, data: Partial<Profile>):Promise<void> {
+  	  	try {
+            const db = getFirestore();
+            const docRef = doc(db, collectionName, uid);
+            
+            console.log(`[BaseProfileService] Guardando perfil en '${collectionName}':`, uid);
+            
+            // Preparar datos para Firestore
+            const profileData = {
+            	...data,
+            	uid:uid,
+            	createAt: serverTimestamp(),
+            	updateAt: serverTimestamp(),
+            	status: 'active'
+            }
+
+            await setDoc(docRef, profileData);
+
+             console.log(`[BaseProfileService] ✅ Perfil guardado exitosamente en '${collectionName}'`);
+
+  	  }catch (error: any) {
+            console.error('[BaseProfileService] ❌ Error al guardar perfil:', error);
+            throw new Error(`Error al guardar perfil en ${collectionName}: ${error.message}`);
+        }
+    }
+
+    	/**
+     	* Obtiene un perfil por su UID
+     	* @param collectionName - Nombre de la colección
+     	* @param uid - ID del usuario
+     	* @returns Perfil encontrado o null si no existe
+    	 */
+
+     static async getProfile(collectionName:'students' | 'teachers', uid: string): Promise<Profile| null> {
+     	 try{
+
+     	 	const db = getFirestore();
+            const docRef = doc(db, collectionName, uid);
+
+            
+     	 	  console.log(`[BaseProfileService] ✅ Obteniendo Perfil de ${collectionName}: `, uid);
+
+     	 	     const docSnap = await getDoc(docRef);
+
+     	 	     if (docSnap.exists()) {
+     	 	     	 const data = docSnap(docRef);
+     	 	     	 	console.log(`[BaseProfileService] ✅  Perfil Encontrado`);
+
+     	 	     	    return{
+     	 	     	   	  uid: docSnap.id,
+                    	  ...data
+     	 	     	    } as Profile;
+     	 	    }
+     	 	     	  console.log(`[BaseProfileService] ⚠️ Perfil no encontrado`);
+				    return null;
+
+     	 }catch(error: any){
+     	 	console.error('[BaseProfileService] ❌ Error al obtener perfil:', error);
+            throw new Error(`Error al obtener perfil: ${error.message}`);
+     	 }
+    }
+    /**
+     	* Act. los campos especificos de tu perfil 
+     	* @param collectionName - Nombre de la colección
+     	* @param uid - ID del usuario
+     	*  @param updates - Campos a actualizar
+     	* 
+    	 */
+
+       static async updateProfile(collectionName: 'students', |'teachers', uid: string, updates: Partial<Profile>)Promise<void>{
+       		try{
+
+	     	 	const db = getFirestore();
+	            const docRef = doc(db, collectionName, uid);
+
+	            
+	     	 	  console.log(`[BaseProfileService] ✅ Actualizando Perfil en ${collectionName}: `, uid);
+
+	     	 	     await updateDoc(docRef,{
+	     	 	     	...updates,
+	     	 	     	updatedAt: serverTimestamp();
+	     	 	     });
+
+					 console.log(`[BaseProfileService] ⚠️ Perfil Actualizado`);
+
+     	 	}catch(error: any){
+     	 		 console.error('[BaseProfileService] ❌ Error al actualizar perfil:', error);
+     	 		  throw new Error(`Error al actualizar perfil: ${error.message}`);
+     	 	}
+       }
+
+       /**
+     * Obtiene todos los perfiles de una colección (con límite opcional)
+     * @param collectionName - Nombre de la colección
+     * @param limit - Límite de resultados (opcional)
+     * @returns Array de perfiles
+     */
+    static async getAllProfiles(collectionName: 'students' | 'teachers', limit?: number): Promise<Profile[]> {
+    		try{
+    		
+    			     	 	const db = getFirestore();
+    			            const collectionRef = doc(db, collectionName, uid);
+    	
+    			     	 	  console.log(`[BaseProfileService] ✅ Obteniendo todos los Perfiles de ${collectionName}: `);
+
+    			     const snapshot = getDocs(collectionRef);
+
+    			     let profiles = snapshot.docs.map(doc =>({
+    			     	uid: doc.id,
+    			     	...doc.data()
+    			     })) as Profile[];
+
+    			     // Aplicar limite si se especifica
+    			     if (limit) {
+    			     	profiles = profiles.slice(0,limit);
+    			     }
+
+    			    	console.log(`[BaseProfileService] ${profiles.length} perfiles obtenidos`);
+
+    			    return profiles;
+    		}catch(error: any){
+    			 console.error('[BaseProfileService] ❌ Error al obtener perfiles:', error);
+    			 throw new Error(`Error obtenido al obtener perfiles: ${error.message}`);
+    		}
+    }
+
+
+    /**
+     * Busca perfs x email
+     *  @param  collectionName - Nombra la coleccion
+     * @param email - Email a buscar
+     * @param Perfil encontrado o nulo*/
+
+    static async getProfileByEmail(collectionName: 'students' | 'teachers', email: string):Promise<Profile[]> {
+
+     	try{
+     	    		
+     	    	const db = getFirestore();
+    	    const collectionRef = doc(db, collectionName, uid);
+
+			const qr = query(
+					   collectionRef(collectionRef where('email', '==', email)
+				     );
+			const snapshot = await getDocs(qr);
+
+			if (snapshot.empty) {
+				return null;
+			}
+
+     	    	const doc = snapshot.docs[0];
+	
+			return{
+ 	 	     	   	  uid: doc.id,
+                	  ...doc.data()
+ 	 	     	    } as Profile;
+     	}catch(error: any){
+     	    console.error('[BaseProfileService] ❌ Error al buscar por email:', error);
+     	     throw new Error(`Error al buscar perfil: ${error.message}`);
+     	}
+    }
+  /**
+     * Elimina el perfil
+     *  @param  collectionName - Nombra la coleccion
+     * @param uid: ID del usuario
+     * */
+
+    static async deleteProfile(collectionName: 'students' | 'teachers', uid: string):Promise<void>{
+    	try{
+    	    		
+    	    			const db = getFirestore();
+    	    			const collectionRef = doc(db, collectionName, uid);
+    	    			console.log(`[BaseProfileService] ✅ Desactivando Perfil en ${collectionName}: `);
+
+    	    	 await updateDoc(docRef,{
+	     	 	     	...updates,
+	     	 	     	updatedAt: serverTimestamp();
+	     	 	     });
+
+    			console.log(`[BaseProfileService] El perfil se ha  sido desactivado`);
+    	}catch(error: any){
+    		  console.error('[BaseProfileService] ❌ Error al eliminar perfil:', error);
+            throw new Error(`Error al eliminar perfil: ${error.message}`);
+    	}
+    }
+
+
+     /**
+     * Busca permanentemente el perfil(hard-delete)
+     *  @param  collectionName - Nombra la coleccion
+     * @param uid: ID del usuario*/
+    static async hardDeleteProfile(collectionName: 'students' | 'teachers', uid: string): Promise<void>{
+		try{
+ 	    		
+ 	    	const db = getFirestore();
+	    const docRef = doc(db, collectionName, uid);
+
+	     console.warn(`[BaseProfileService] ⚠️ ELIMINACIÓN PERMANENTE en '${collectionName}':`, uid);
+
+	     await deleteDoc(docRef);
+
+	      console.log(`[BaseProfileService] ✅ Eliminado permanentemente`);
+	  }catch(error: any){
+		 console.error('[BaseProfileService] ❌ Error al eliminar permanentemente el perfil');
+		 throw new Error(`Error al eliminar Perfil ${error.message}`);
+	  }
+    }
+  
+  }	
