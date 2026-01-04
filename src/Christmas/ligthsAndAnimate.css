@@ -1,0 +1,90 @@
+
+body{
+	margin: 0;
+	height: 100vh;
+	background: #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Arial, sans-serif;
+	color: #fff;
+}
+
+.scene{
+	display: flex;
+	gap:80px;
+	align-items: center;
+}
+
+.tree{
+	position: relative;
+	width: 200px;
+	height: 300px;
+}
+
+.layer{
+	position: absolute;
+	left: 50%;
+	transform: translateY(-50%);
+	background: #0a5c2b;
+	clip-path: polygon(50% 0%, 0 100%, 100% 100%);
+}
+
+.l1{ top:0; width: 140px; height: 90px; }
+.l2{ top: 60px;  width:80px ; height: 110px ; }
+.l3{  top: 140px;  width: 220px ; height: 130px ;}
+
+.ligth{
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	opacity: 0.3;
+}
+
+.red{
+background: #ff3b3b;
+}
+
+.yellow{
+background: #ffd93b;
+}
+
+.blue{
+background: #3b8bff ;
+}
+
+.green{
+background: #3bff7a ;
+}
+
+
+
+@keyframes glow{
+
+}
+
+.on .ligth{
+
+}
+
+.switch-container{
+
+}
+
+.switch{
+
+}
+
+
+.lever{
+
+}
+
+.switch.on .lever{
+
+}
+
+.label {
+
+}

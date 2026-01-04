@@ -11,7 +11,7 @@ import type { ProfileTeacher, ProfileStudent, UserRole } from '@/types/interface
  * Maneja el estado de autenticación y perfil del usuario
  * Sigue el patrón Services-Stores-Views
  */
-export const useAuthStoref = defineStore('auth', () => {
+export const useAuthStore3 = defineStore('auth', () => {
   
   // =====================================================
   // ESTADO

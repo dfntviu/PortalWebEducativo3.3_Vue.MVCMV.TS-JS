@@ -1,6 +1,6 @@
 ANALISIS DE VISTAS EN LA VERSION SRC
 
-======== VISTAS ACTUALES ===============
+ ======== VISTAS ACTUALES ===============
  1 vModerateBaseComments
  2 vStudentsAdmMatls
  3 vMaterIndividual
@@ -10,7 +10,7 @@ ANALISIS DE VISTAS EN LA VERSION SRC
   - vUploadMaterial [No]
  
 
-=======	PROBLEMAS DETECTADOS CON LAS VISTAS ACTUALES ==============
+ =======	PROBLEMAS DETECTADOS CON LAS VISTAS ACTUALES ==============
  1 Muy dificil de seguir el flujo, contiene separacion de modulos que
    no estan bien planificados. La solucion prop. es buena, pero el desarollo
    parece romperse en la plantilla base(vista).
@@ -62,5 +62,4 @@ ANALISIS DE VISTAS EN LA VERSION SRC
 
     La Vista con ('-'). No se cuenta, esta bien diseñada.
     Ademas fue mejorada.
-========================================================================================
-   CAMBIOS APLICADOS EN LA VERSION REFACTOR
+  ==========================================================================
