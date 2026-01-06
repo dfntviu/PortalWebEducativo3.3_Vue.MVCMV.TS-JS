@@ -6,7 +6,7 @@
    ESTUDIANTES 
 
    RESTANTES PERO QUE PODRIAN ELIMINARSE
-     - viewModerarComentarios.vue (no es necesario, podria refinarse y quedar como componente)
+     - viewModerarComentarios.vue (no es necesario, podria refinarse y quedar como componente -  [listo])
      - viewUploadMaterials - Eliminar este archivo, y salvar conservar viewUpload.vue
     PENDIENTES
-     - viewRegisterStudent.vue [solo este]
+     - viewRegisterStudent.vue [listo]

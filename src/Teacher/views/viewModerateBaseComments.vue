@@ -32,7 +32,6 @@
 	 const tipo_respuesta = ref();
 	 const alls = ref([]);
 
-	 /*Metodo  para el listado de lo materiales desaprobados(rechazados) */
 
 	 
 </script>

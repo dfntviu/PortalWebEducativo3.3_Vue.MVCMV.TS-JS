@@ -250,6 +250,9 @@
 </script>
 
 <style scoped>
+	/*==========================================
+		ESTILOS DEL COMPONENTE DE EDICION DEL PERF.
+		==========================================*/
 	.edicion-perfil{
      background-color: #f8f9fa;
      border-radius: 8px;

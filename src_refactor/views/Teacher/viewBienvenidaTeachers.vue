@@ -72,6 +72,6 @@
 
 	.fade-slide-leave-to{
 		opacity: 0;
-		transform: translateY(30px);
+		transform: translateY(20px);
 	} 
 </style>

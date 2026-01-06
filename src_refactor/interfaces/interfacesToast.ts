@@ -6,7 +6,7 @@ export interface Material {
       autorEmail: string;
       autorId: string;
       estado: MaterialStatus;
-      fechaCreacion: Date;
+      fechaCreacion?: Date;
       fechaActualizacion?: Date;
       fechaAprobacion?: Date;
       archivoURL: string;
@@ -17,7 +17,7 @@ export interface Material {
       tamanioBytes: number;
       moderadorId?: string;
       moderadorNombre?: string;
-      visitas?: number;
+      vistas?: number;
       descargas?: number;
     }
 
@@ -25,7 +25,7 @@ export interface Material {
 	export type MaterialStatus = 'aprobado' | 'rechazado' | 'pendiente';
 	
 	/* ═════════════════════════*/
-	/* 		TIPOS P/MATERIALES*/
+	/* 		TIPOS P/LOS REPORTES*/
 	/* ═════════════════════════*/
 
    export interface MaterialReport extends Omit<Material, 'tamanioBytes'> {
@@ -69,37 +69,59 @@ export interface Material {
       }
 
       /**
+       * ══════════════════════════════════════════
+       *        TIPOS PARA EXPORTACION
+       * ══════════════════════════════════════════
+       * */
+       export type FormatType = 'pdf' | 'docx' | 'xls';
+
+       export interface ConversionResult {
+           success: boolean;
+           message: string;
+           blob?: Blob;
+           nombre_archivo?: string;
+       }
+
+       export interface ExportOptions {
+         format: FormatType;
+         filename: string;
+         includeStats?: boolean;
+         customFields?: string[];
+       }
+
+      /**
  		* ══════════════════════════════════════════
  		*   TIPOS PARA TOASTS/NOTIFICACIONES
  		* ══════════════════════════════════════════
  	  */
 
 
- 	 enum ToastType {
+ 	export enum ToastType {
 	 	 SUCCESS = 'success'
 	 	 ERROR = 'error'
 	 	 WARNING = 'warning'
 	 	 INFO = 'info'
  	 }	
 
- 	 enum ToastPosition {
- 	 	TOP_RIGTH;
- 	 	TOP_LEFT;
- 	 	TOP_CENTER;
- 	 	BOTTOM_RIGTH;
- 	 	BOTTOM_CENTER;
- 	 }
+ 	export enum ToastPosition {
+ 	 	TOP_RIGTH= 'top-right' ;
+ 	 	TOP_LEFT=  'top-left' ;
+ 	 	TOP_CENTER= 'top-center' ;
+ 	 	BOTTOM_RIGTH= 'bottom-right' ;
+ 	 	BOTTOM_LEFT = 'bottom-left';
+            BOTTOM_CENTER = 'bottom-center';
+ 	}
 
- 	 export interface ToastOptions {
- 	 	titulo:
- 	 	mensaje:
- 	 	tipo:
- 	 	duracion:
- 	 	posicion:
- 	 	desestimable:
- 	 	icono:
- 	 	onClose:
- 	 }
+ 	export interface ToastOptions {
+ 	 	titulo: string;
+ 	 	mensaje: string;
+ 	 	tipo:ToastType;
+ 	 	duracion?: number;
+ 	 	posicion?: ToastOptions
+ 	 	desestimable?: boolean;
+ 	 	icono?: string;
+ 	 	onClose?: ()=>void;
+ 	}
 
  	 export interface ToastType extends ToastOptions {
  	 	id: string;
@@ -112,7 +134,7 @@ export interface Material {
  	 * ══════════════════════════════════════════
  	 *      TIPOS PARA USUARIOS (para el modal de reportes- [Welcomes- Vws-Bienvenida])
  	 * ══════════════════════════════════════════*/ 	
- 	 export UserRole = 'alumno' | 'profesor';  /*| 'admin';*/
+ 	export UserRole = 'alumno' | 'profesor';  /*| 'admin';*/
 
 
  	 	export interface UserProfile {
@@ -127,4 +149,4 @@ export interface Material {
   			createdAt: Date;
   			lastLogin?: Date;	
 	   }
-	
+       

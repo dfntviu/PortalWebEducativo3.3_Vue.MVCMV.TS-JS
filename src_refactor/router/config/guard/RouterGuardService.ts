@@ -2,11 +2,15 @@ import { PermissionsService } from '@/services/config/PermissionsServ';
 import { useAuthStore } from '@/stores/authStore2';
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import type { Role } from '@/types/interfacesv2';
+		/**
+		 * Archivo de Seguridad determinar inicios de sesion y vista predeterminada del Web System
+		 * Port. Web Educativo 3.3.2 */
+
 /*?=??QWQEGTDRHYIUOIFGDFCEFJGOIERPHKJNHTEJF*/
-export class RouterGuardService{
+export class RouterGuardService {
 	private: permissionServs: PermissionsService;
 /*?=??QWQEGTDRHYIUOIFGDFCEFJGOIERPHKJNHTEJF*/
-	constructor(private role:Role='default'){
+	constructor(private role:Role='default') {
 		 this.permissionServs = new PermissionsService(role);
 	} 
 	/*?=??QWQEGTDRHYIUOIFGDFCEFJGOIERPHKJNHTEJF*/
@@ -62,7 +66,7 @@ export class RouterGuardService{
     /**
      * Guard especifíco para rutas de Profesor
      * */
-	teacherGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void{
+	teacherGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
 			const authStore = useAuthStore();
 	 	if (authStore.role !== 'teacher') {
 	 	 	 console.warn('[RouterGuard] Acceso denegado - Es Obligatorio ingresar credenciales de Profesor.');
@@ -75,7 +79,7 @@ export class RouterGuardService{
 	/**
 	 * Guard especifíco para rutas de Alumno 
 	 * **/	
-	studentGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void{
+	studentGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
 			const authStore = useAuthStore();			
 		if (authStore !== 'student') {
 		 	console.warn('[RouterGuard]: Acceso denegado - Es Obligatorio ingresar credenciales de Alumno.');
