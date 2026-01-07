@@ -11,8 +11,7 @@ import vue from '@vitejs/plugin-vue';
  		} 
  	},
  	server:{
- 		port: 5174 // differet
-
- 	}
+ 		port: 5174, // differet
+ 	},
  
  });

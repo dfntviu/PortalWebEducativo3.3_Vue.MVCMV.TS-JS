@@ -1,5 +1,5 @@
 
-  // ###  INDEX ROUTING: [VUE-ROUTER]  ###
+     // ###  INDEX ROUTING: [VUE-ROUTER]  ###
 
   import {createRouter,createWebHistory} from 'vue-router'; 
   import { route_base } from '@/router/config/routes/router_base.ts';
