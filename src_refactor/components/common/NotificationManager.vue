@@ -40,10 +40,4 @@
     a las reglas del protocolo de diseño universitario. Pues los pointer-events
     son automatics*/
 
-
-     /*AUXILOO COMUNDIAD FI-UAEMEX, mi padre esta ebrio y podria ser PELIGROSO, tenemos un altercado en
-     mi casa se puso AGRESIVO, y LLAMAREMOS  A lA POLI, esta es mi ultima emision. SINO ME VUELVEN 
-     A VER, YA sabrán PORQUE. DANIEL GÓMEZ P. OCUILA DEN ART. **/
-
-
 </style>
