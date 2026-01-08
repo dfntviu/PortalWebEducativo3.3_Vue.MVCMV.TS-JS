@@ -23,3 +23,5 @@
     router.beforeEach(async(to, from, next)=>serviceGhuard.globalGhuard(to, from, next));
     
   export default router;
+
+  

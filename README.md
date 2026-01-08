@@ -35,7 +35,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
    npm install -D tailwindcss@3.4.17 postcss@8.4.49 autoprefixer@10.4.20
 
   ## Aditionals Instructions:
-    - Aniadir las sigientes lineas en el package.json:
-    "name": "portal-educativo",
-    "version": "1.0.0",
-    "type": "module",  // ← AGREGAR ESTA LÍNEA
+    
+   ## Aniadir las sigientes lineas en el package.json: ##
+     "name": "portal-educativo",
+     "version": "1.0.0",
+     "type": "module",  // ← AGREGAR ESTA LÍNEA

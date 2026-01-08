@@ -1,0 +1,66 @@
+# 📘 README
+
+## 👤 AUTHOR
+   DANIEL GOMEZ PEREZ
+
+---
+
+## 🛠️ INFORMACIÓN TÉCNICA
+
+### 🔧 HERRAMIENTAS UTILIZADAS
+1. **Vue.js** 3.5  
+2. **Pinia** 3.0.1  
+3. **Firebase** @12.3.0  
+4. **Dev Tool:** Vite.js 5.2.4  
+5. **Vue Router** v12.4.0  
+6. **Vue Compiler** 3.5.22  
+
+---
+
+### 🏗️ ARQUITECTURA
+- **Service – Store – View**
+
+---
+
+### 🧠 PARADIGMAS
+- **Programación Orientada a Objetos**
+  - Aplicada en: **Services**
+- **Programación Secuencial**
+  - Aplicada en: **Vistas, Componentes y Composables**
+
+---
+
+### 🧩 TIPOS DE FUNCIONES
+- **Funciones de flecha** — JavaScript / TypeScript  
+- **Promesas** — TypeScript  
+
+---
+
+### 💻 EDITOR DE CÓDIGO
+- **Sublime Text**
+
+---
+
+### ✂️ SNIPPETS UTILIZADOS
+- Vue  
+- Vue Snippets  
+- JavaScript Completion  
+
+---
+
+### ☁️ ECOSISTEMA DE TRABAJO
+- **Google Firebase**
+
+---
+
+## ✅ RESULTADOS OBTENIDOS
+> _(Pendiente de documentar resultados finales del proyecto)_
+
+---
+
+## 📊 TOTAL DE VISTAS 
+  ** Total de Vistas:** 10 
+  ### 🔹 Vistas Separadas
+- 1 vista unificada de perfil
+- 1 vista de bienvenida
+- 1 dashboard de estadística
