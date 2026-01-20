@@ -97,10 +97,10 @@ export interface Material {
 
 
  	export enum ToastType {
-	 	 SUCCESS = 'success'
-	 	 ERROR = 'error'
-	 	 WARNING = 'warning'
-	 	 INFO = 'info'
+	 	 SUCCESS = 'success';
+	 	 ERROR = 'error';
+	 	 WARNING = 'warning';
+	 	 INFO = 'info';
  	 }	
 
  	export enum ToastPosition {
@@ -149,4 +149,3 @@ export interface Material {
   			createdAt: Date;
   			lastLogin?: Date;	
 	   }
-       

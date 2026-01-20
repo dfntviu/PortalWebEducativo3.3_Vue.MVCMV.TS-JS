@@ -320,7 +320,7 @@
 		 }
 
 		 // Aplicar criterios de Clasificacion
-		switch(sortBy.value){
+		switch(sortBy.value) {
 		 	case 'recent':
                 materials.sort( (a,b) => new Date(b.fechaSubida).getTime() - new Date(a.fechaSubida).getTime());  
 		 	 	break;
@@ -540,12 +540,12 @@
 	/*═══════════════════════════════════*/
   	/*			FILTROS						    */
   	/*══════════════════════════════════ */
-  	 .filters-section{
+  	 .filters-section {
   	 	@apply max-w-7xl mx-auto mb-6 space-y-4;
   	 	animation: slideInUp 0.6s ease-out 
   	 }
 
-  	 .search-container{
+  	 .search-container {
   	 	@apply w-full
   	 }
   	 
@@ -556,7 +556,7 @@
   	 		transition-all duration-200;
   	 }
 
-  	 .filters-container{
+  	 .filters-container {
   	 	 @apply flex flex-grap gap-4 items-center justify-between;
   	 }
 
@@ -564,17 +564,17 @@
   	 	@apply flex items-center gap-2:;
   	 }
 
-  	 .filters-label{
+  	 .filters-label {
   	 	@apply text-sm font-medium text-gray-700 dark: text-gray-300;
   	 }
 
-  	.filter-select{
+  	.filter-select {
   	 	@apply px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600
   	 			bg-white dark:bg-gray-800 text-gray-900 dark:text-white
 	 	 	   focus:ring-2 font:ring-blue-500 focus:border-transparet;
   	}
 
-	.clear-filter-btn{
+	.clear-filter-btn {
 	 	 @apply px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700
 	 	   text-gray-700 dark:text-gray-300 font-medium
 	 	   hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors;
@@ -582,7 +582,7 @@
 	 /*═══════════════════════════════════*/
   	 /*	SECCION DE MATERIALES 			  */
   	 /*═══════════════════════════════════*/
-	.materials-section{
+	.materials-section {
 		@apply  max-w-7xl mx-auto;	
 	}	  	 
 
@@ -591,11 +591,11 @@
 		animation: scaleIn 0.4s ease-out;
 	}
 
-	.state-container .error{
+	.state-container .error {
 		@apply border-2 border-red-200 dark:border-red-800;
 	}
 
-	.state-container .empty{
+	.state-container .empty {
 		@apply border-2 border-gray-200 dark:border-gray-700;
 	}
 
@@ -604,7 +604,7 @@
      	animation: spin 1s linear infinite;
    }
 
-   .state-icon{
+   .state-icon {
    	@apply text-6xl mb-4 block;
 	}
 
@@ -612,18 +612,18 @@
 		@apply text-xl font-medium text-gray-700 dark: text-gray-300 mb-2; 
 	}
 
-	.state-hint{
+	.state-hint {
 		@apply mt-4 px-6 bg-blue-600 text-white rounded-lg font-medium
 		 hover:bg-blue-700 transition-colors;
 	}
 
-	.retry-btn{
+	.retry-btn {
 		@apply bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden;
 		animation: slideInUp 0.6s ease-out;
 	}
 	
 		/* Table  */
-	.table-container{
+	.table-container {
 		@apply bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden;
 		animation: slideInUp 0.6s ease-out;
 	}
@@ -632,7 +632,7 @@
 		@apply w-full;
 	}
 
-	.materials-table th{
+	.materials-table th {
 		@apply px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider;
 	}
 
@@ -661,7 +661,7 @@
 		@apply text-xs text-gray-500 dark:text-gray-500;
 	}
 
-	.status-badge{
+	.status-badge {
 		@apply bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200;
 	}
 
@@ -681,12 +681,12 @@
 		@apply flex gap-2;
 	}
 
-	.action-btn{
+	.action-btn {
 		@apply p-2 rounded-lg transition-all duration-200
 		disabled:opacity-50 disabled:cursor-not-allowed;
 	}
 
-	.action-btn .view{
+	.action-btn .view {
 		@apply bg-blue-100 dark: bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800;
 	}
 
@@ -803,5 +803,4 @@
    	/*			 TRANSITIONS			 */
    	/*═══════════════════════════════════════*/
 
-  
   </style>  

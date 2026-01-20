@@ -2,8 +2,8 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { onAuthStateChanged, type User } from 'firebase/auth';
-import { auth } from '@/config/initializeFirebaseConf';
-import { authService } from '@/services/AuthService';
+// import { initializeFirebaseStorage } from '@/config/initializeFirebaseConf.ts'; 
+import { AuthService } from '@/services/Auth_Service.ts';
 import type { ProfileTeacher, ProfileStudent, UserRole } from '@/types/interfacesv2';
 
 /**
@@ -11,6 +11,8 @@ import type { ProfileTeacher, ProfileStudent, UserRole } from '@/types/interface
  * Maneja el estado de autenticación y perfil del usuario
  * Sigue el patrón Services-Stores-Views
  */
+ // const { auth } = initializeFirebaseStorage();
+
 export const useAuthStore3 = defineStore('auth', () => {
   
   // =====================================================

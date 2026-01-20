@@ -8,7 +8,7 @@
 
 					<button class="btn-secondary flex-items-center gap-2">
 					    <svg class="w-5 h-5">
-					   	   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+					   	   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
 					    </svg>
 				     Actualizar</button>
 				</div>
@@ -351,12 +351,12 @@
 	    </Teleport> <!-- #endRegion -->
 
 
-	    <div v-if="loading && pendigsMaterials.lenth === 0" 
+	    <div v-if="loading && pendigsMaterials.length === 0" 
 	       class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-90 z-40" > 
 	    	<div class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-90 z-40">
 	    		<div class="text-center">
-	    			<svg class="animate-spin h-12 w-12 text-blue-600 mx-auto" fill="noen" viewBox="0 0 24 24">
-	    				<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 5.373 14h4zm2 5.291A7.962 0 014 12HC0c0 3.042 1.135 5.824 3 7.931813-2.647z">
+	    			<svg class="animate-spin h-12 w-12 text-blue-600 mx-auto" fill="none" viewBox="0 0 24 24">
+	    				<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
 	    			</svg>
 	    			<p class="mt-4 text-gray-600 font-medium">Cargando los Materiales</p>
 	    		</div>

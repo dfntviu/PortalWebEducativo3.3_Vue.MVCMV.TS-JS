@@ -6,7 +6,7 @@
 					<div class="flex flex-col sm-flex-row justify-between items-start sm:items-center gap-3">
 						<div>
 							<h1 class="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-								<span class="text-4xl">Notificaciónes</span>
+								<span class="text-4xl">Notificaciones</span>
 							</h1>
 							<p class="text-gray-600 dark:text-gray-400 mt-1">
 							   {{unReadCount}}Sin Leer de {{totalNotifications}}
@@ -14,11 +14,11 @@
 						</div>
 
 						<div class="flex gap-3">
-							<button v-if="unReadCount>0" class="px-4 py-2 blue-600 hover:bg-blue-700 text-white rounded-lg font-medium"
+							<button v-if="unReadCount>0" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium"
 								@click="controllMarkAllAsRead">
 								<span class="text-lg">✓</span>
 							</button>
-							<button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all duration-200 flex.items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+							<button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
 								<span  :class="{'animate-spin': loading}" class="text-lg">
 									🔄️
 								</span>

@@ -19,25 +19,25 @@
 					</button>
 				</div>
 
-				<!-- Error Alert -->
-					<div class="mt-4 p-4 bg-red-50">
-						<div class="flex items-start gap-3">
-							<span class="text-2xl">⚠️</span>
-							<div class="flex-1">
-								<h3 class="font-semibold text-red-800">Error</h3>
-								 <p class="text-sm text-red-700 dark:text-red-700 dark:text-red-300">
-									 {{error}}
-								 </p>
-							</div>
-							<button class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
-								 ✕
-							</button>
+					<!-- Error Alert -->
+				<div class="mt-4 p-4 bg-red-50">
+					<div class="flex items-start gap-3">
+						<span class="text-2xl">⚠️</span>
+						<div class="flex-1">
+							<h3 class="font-semibold text-red-800">Error</h3>
+							 <p class="text-sm text-red-700 dark:text-red-700 dark:text-red-300">
+								 {{error}}
+							 </p>
 						</div>
+						<button class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
+							 ✕
+						</button>
 					</div>
+				</div>
 					<!-- Estadisticas -->
 					<div class="grid grid-cols2">
 						<div class="from-blue-50 to-blue-100">
-							<div class="flex items-center">
+							<div class="flex items-center justify-between">
 								<div>
 									<div class="text-sm font-medium">
 										<p class="text-sm">Total</p>
@@ -48,8 +48,8 @@
 								</div>
 							</div>
 
-							<div class="from-yellow-100 to-yellow-100 rounded-xl p-4">
-								<div class="flex items-center j-between">
+							<div class="bg-gradient from-yellow-100 to-yellow-100 rounded-xl p-4">
+								<div class="flex items-center justify-between">
 									<div>
 										<p class="text-sm font-medium">Pendientes</p>
 										<p class="text-3xl font-bold"> {{stats.pending}}</p>
@@ -58,27 +58,27 @@
 								</div>
 							</div>
 
-						<div class="bg-gradient from-green-50 to-green-100">
-							<div class="flex items-center j-between">
-								<div>
-								 <p class="tex-sm text-green-100">Aprobados</p>
-								 <p class="text-3xl font-bold">{{stats.approved}}</p>
-								</div>
-								 <span class="text-4xl">✅</span>
-							</div>
-						</div>
-
-						<div class="bg gradient-to-br from-red-50 to-red-100">
-							<div class="flex items-center j-b">
-								<div>
+							<div class="bg-gradient from-green-50 to-green-100">
+								<div class="flex items-center justify-between">
 									<div>
-										<p class="text-sm text-red-600 font-medium">Rechazados</p>
-										<p class="text-3xl font-bold text-red-700">{{stats.rejected}}</p>
+									 <p class="text-sm text-green-100">Aprobados</p>
+									 <p class="text-3xl font-bold">{{stats.approved}}</p>
 									</div>
-									<span class="text-4xl">❌</span>
+									 <span class="text-4xl">✅</span>
 								</div>
 							</div>
-						</div>
+
+							<div class="bg gradient-to-br from-red-50 to-red-100">
+								<div class="flex items-center justify-between">
+										<div>
+											<p class="text-sm text-red-600 font-medium">Rechazados</p>
+											<p class="text-3xl font-bold text-red-700">{{stats.rejected}}</p>
+										</div>
+										<span class="text-4xl">❌</span>
+								</div>
+							</div>
+					   </div>
+					</div>
 
 					<!-- Busqueda y Filtros -->
 					<div class="bg-white dark:bg:gray-800 rounded-xl shadow-xl">
@@ -329,8 +329,8 @@
 											<span>{{getStatusLabel(selectedMaterial.status)}}</span>
 										</div>
 
-										<div v-if="selectedMaterial moderateAt">
-											<p class="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mb-1">Fechas de Moderación</p>
+										<div v-if="selectedMaterial?.moderateAt"> <!--revw-->
+											<p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Fechas de Moderación</p>
 											<p class="font-medium text-gray-900 dark:text-white">{{formateDate(moderateAt)}}</p>
 										</div>
 
@@ -396,6 +396,7 @@
 								</div>
 							</Transition>
 						</Teleport>
+					</div>
 			</div>
 		</div>
 	</div>

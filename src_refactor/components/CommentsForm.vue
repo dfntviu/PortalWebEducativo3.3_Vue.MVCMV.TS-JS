@@ -125,7 +125,7 @@
 	    METODOS CONTROLADORES (AYUDA)
 	  ==============================*/
 
-	function handleSubmit(): void{
+	function handleSubmit(): void {
 		if(!validateForm()){
 			return;
 		}
@@ -145,9 +145,9 @@
 	}
 </script>
 
-  <style scoped>
+<style scoped>
   	
-  	.comment-form{
+  	.comment-form {
   		padding: 1.25rem;
   		background: #f9fafb;
   		border: 1px solid #e5e7eb;
@@ -155,7 +155,7 @@
   		margin-bottom: 2rem;
   	}
 
-  	.form-title{
+  	.form-title {
   	  font-size: 1rem;
   	  font-weight: 600;
   	  color: #111827;
@@ -170,7 +170,7 @@
  		margin-bottom: 1.5rem;
  	}
 
- 	.form-label{
+ 	.form-label {
  	   display: block;
  	   font-size: 0.875rem;
  	   font-weight: 500;
@@ -198,11 +198,11 @@
  		box-shadow: 0 0 3px  rgba(59, 130, 246, 0.1);
  	}
 
- 	.form-textarea.has-error{
+ 	.form-textarea.has-error {
  		border-color: #ef4444;
  	}
 
- 	.form-textarea.has-error:focus{
+ 	.form-textarea.has-error:focus {
  		box-shadow: 0 0 3px rgba(239, 68, 68, 0.1);
  	}
 
@@ -212,7 +212,7 @@
  		opacity: 0.6;
  	}
 
- 	.form-textarea::placeholder{
+ 	.form-textarea::placeholder {
  		color: #9ca3ef;
  	}
     /*===============================
@@ -232,20 +232,20 @@
  		font-weight: 500;
  	}
 
- 	.char-counter{
+ 	.char-counter {
  		font-size: 0.8125rem;
  		color: #6b7280;
  		font-weight: 500;
  		margin-left: auto;
  	}
 
- 	.char-counter.limit-warnig{
+ 	.char-counter.limit-warnig {
  		color: #f59e0b;
  	}
  	/*=====================================
       STYLES LA CASILLA VERFIFIC (checkbox)
       ======================================*/
- 	.checkbox-label{
+ 	.checkbox-label {
      display: flex;
      align-items: center;
      gap: 0.7;
@@ -265,7 +265,7 @@
  		opacity: 0.5;
  	}
 
- 	.checkbox-text{
+ 	.checkbox-text {
  		display: flex;
  		align-items: center;
  		gap: 0.375rem;
@@ -274,7 +274,7 @@
  		color: #374151;
  	}	
 
- 	.checkbox-text .icon{
+ 	.checkbox-text .icon {
  		 font-size: 1rem;
  	}	
 
@@ -288,7 +288,7 @@
  	  /*===========================
 	   	 	 BOTONES DE ACCION
 	    ===========================*/
-	   .forms-action{
+	   .forms-action {
 	   	 display: flex;
 	   	 gap: 0.75rem;
 	   	 justify-content: flex-end;
@@ -330,7 +330,7 @@
 	   	  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
 	   }
 
-	   .btn-primary:hover:not(:disabled){
+	   .btn-primary:hover:not(:disabled) {
 	   	  background: linear-gradient(135deg,#2563eb 0%, #1d43d8 100%);
 	   	  box-shadow: 0 4px 6px rgba(59, 130, 246,0.3);
 	   	  transform: translateY(-1px);
@@ -344,7 +344,7 @@
 	   /*============================
 			 LOADING SPINNER
 	     ============================*/
-	   .loading-spinner{
+	   .loading-spinner {
 	   	 display: inline-block;
 	   	 width: 1rem;
 	   	 height: 1rem;
@@ -360,4 +360,4 @@
 	   	  }
 	   }
 
-  </style>
+</style>

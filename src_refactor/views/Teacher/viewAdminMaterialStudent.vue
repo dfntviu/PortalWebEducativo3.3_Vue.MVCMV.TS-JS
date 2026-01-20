@@ -70,7 +70,7 @@
 				<section  class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 animate-shake">
 				 	<div   class="flex items-start space-x-4 p-4 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded">
 				 			<svg  class="w-6 h-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20">
-				 				<path  fill-rule="evenodd"  9,4
+				 				<path  fill-rule="evenodd"
                 			d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                 		</svg>	
 			 			<div class="flex-1">

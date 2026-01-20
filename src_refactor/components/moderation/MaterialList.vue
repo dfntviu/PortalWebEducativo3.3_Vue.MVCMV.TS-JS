@@ -50,7 +50,6 @@
 
 <script setup lang="ts">
 
-
 	import {ref, onMounted, onUnmounted} from 'vue';
 	import { storeToRefs } from 'pinia';
 	import { useModerationStore } from '@/stores/moderationStore';
@@ -416,7 +415,6 @@
             /*opacity: 1;*/
         }
     }
-
 
     @keyframes bounceDown {
         0%,100% {

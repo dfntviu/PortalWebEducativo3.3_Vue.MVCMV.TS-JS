@@ -204,14 +204,14 @@
 <script setup lang="ts">
 	import {ref, computed, onMounted} from 'vue';
 	import {useMaterialStudentStore} from '@/stores/materials/MaterialStudentStore';
-	import {useAuthStoref} from '@/stores/authStore3';
+	import {useAuthStore3} from '@/stores/authStore3';
 	import type { Material} from '@/types/inteface.index.js';
 	
 	// =============================
 	//  ESTADOS
 	// =============================
 	 const materialStore = useMaterialStudentStore();
-	 const authStore = useAuthStore();
+	 const useAuthStore3 = useAuthStore();
 	 
    // =================================
 	 //			ESTADO DEL FORMULARIO

@@ -356,7 +356,7 @@
      /*══════════════════════════════════════*/
  	 /*			PROPERTIES COMPUTED			*/
  	 /*══════════════════════════════════════*/	
-    const transitionName = computed(()=>{
+    const transitionName = computed(()=> {
     	return registrationType.value === 'traditional' ? 'slide-left' : 'slide-right'
     });
 
@@ -399,7 +399,7 @@
  	  /*			EVENT HANDLERS				*/
  	  /*══════════════════════════════════════*/
 
-	const handlerTypeChange = (type: RegistrateType): void =>{
+	const handlerTypeChange = (type: RegistrateType): void => {
 	  registrationType.value = type;
 	   clearErrors()
 	}
@@ -568,7 +568,7 @@
 		 return emailRegex.test(email);
 	}
 
-	const syncProfileToForm = async(profile: ProfesorUser): void =>{
+	const syncProfileToForm = async(profile: ProfesorUser): void => {
 		profileFormData.name = profile.name || '',
 		profileFormData.lname  = profile.lname || '',
 		profileFormData.correo = profile.correo  || '',

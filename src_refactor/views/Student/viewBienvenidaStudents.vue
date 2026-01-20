@@ -7,7 +7,7 @@
 			<!--───────────────────────────────────────────────  -->
 			<!--		 Welcome Component  - Role 02 				-->
 			<!--───────────────────────────────────────────────  -->
-		<WelcomeUsers v-if="isAuthentitcated && isAlumno"  role="teacher" />
+		<WelcomeUsersF v-if="isAuthentitcated && isAlumno"  role="teacher" />
 			<div v-else-if="isLoading" class="flex items-center justify-center min-h-screen">
 					<!-- Loading State -->
 				<div class="text-center">
@@ -30,7 +30,7 @@
  import { computed} from 'vue'
  import { storeToRefs } from 'pinia'
   import {useAuthStore} from '@/components/authStore';
-  import WelcomeUsers from '@/components/WelcomeUsers.vue'
+  import WelcomeUsers from '@/components/main/WelcomeUsersF.vue'
 
   const authStore = userAuthStore();
   const {isAuthentitcated, profile} = storeToRefs(authStore);
@@ -60,8 +60,8 @@
 	.fade-slide-leave-to {
 		opacity: 0;
 		transform: translateY(20px);
-	}
-</style>
+	} 
+</style> <!-- ##CULMINATED## --> 
 <!-- corregir index.html.refactor para iniciar compilador vue sin
 errores desde src_refactor, no omitir que se inicia con el valor
 del argumento dev:refactor -->

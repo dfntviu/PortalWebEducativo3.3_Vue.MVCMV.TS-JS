@@ -75,7 +75,7 @@
 <script setup lang="ts">
 	import {ref, computed, onMounted} from 'vue';
 	import {useRouter} from 'vue-router';
-	import {useAuthStore} from '@/stores/authStore';
+	import {useAuthStore3} from '@/stores/authStore3.ts';
 	import type {userRole} from '@/interfaces/interfaceRules.ts';
 
 		// =========================

@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'  // # Aniadir pinia
-import { initializeFirebaseStorage } from './config/initializeFirebaseConf.ts'  //configuracion Firebase centralizado
+//import { initializeFirebaseStorage } from '@/config/initializeFirebaseConf.ts'  configuracion Firebase centralizado
 import router from './router/index.js'
 import './assets/styles/materialColors.css'
 import App from './App.vue'  
