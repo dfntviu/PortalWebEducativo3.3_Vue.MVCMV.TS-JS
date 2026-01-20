@@ -1,26 +1,23 @@
-{ 
-  "name":"portal-w-educativo", 
-   "version": "3.3.2", 
-   "type": "module",  
+{
+  "name": "portal-web-educativo",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
-    "dev:refactor": "vite --config vite.config.refactor.ts",
     "build": "vite build",
-    "build:refactor": "vite build --config vite.config.refactor.ts"
+    "serve": "vite preview"
   },
   "dependencies": {
-    "firebase": "^12.4.0",
-    "pinia": "3.0",
-    "vue": "^3.5.22",
-    "vue-router": "^4.4.5"
+    "vue": "^3.5.22"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.4",
     "@vue/compiler-sfc": "^3.5.22",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
+    "vite": "^6.4.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.3",
-    "vite": "^6.4.1"
+    "autoprefixer": "^10.4.20",
+    "postcss": "8.4.49"
+  },
+  "overrides": {
+    "postcss": "8.4.49"
   }
 }

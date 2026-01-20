@@ -1,8 +1,8 @@
-  import viewBienvenidaStudents from '@/views/Student/viewBienvenidaStudents.vue';    
-  import viewMaterialIndividual from '@/views/Student/viewMaterialIndividual.vue'; 
-  import viewRegisterStudent from '@/views/Student/viewRegisterStudent.vue';
-  import viewStudentsAdmMaterials from '@/views/Student/viewStudentsAdmMaterials.vue';
-  import viewUploadMaterials from '@/views/Student/viewUploadMaterials.vue';
+  import viewBienvenidaStudents from '/views/Student/viewBienvenidaStudents.vue';    //@ corregir  - vite.config
+  import viewMaterialIndividual from '/views/Student/viewMaterialIndividual.vue'; 
+  import viewRegisterStudent from '/views/Student/viewRegisterStudent.vue';
+  import viewStudentsAdmMaterials from '/views/Student/viewStudentsAdmMaterials.vue';
+  import viewUploadMaterials from '/views/Student/viewUploadMaterials.vue';
 
    // FILE ROUTER ONE: ROLE_OF_STUDENTS
   export const route_student = [

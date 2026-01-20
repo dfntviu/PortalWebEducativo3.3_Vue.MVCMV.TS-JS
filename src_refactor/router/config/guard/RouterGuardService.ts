@@ -1,4 +1,4 @@
-import { PermissionsService } from '@/services/config/PermissionsServ';
+import { PermissionsService } from './router/PermissionService.ts';
 import { useAuthStore } from '@/stores/authStore2';
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import type { Role } from '@/types/interfacesv2';
@@ -8,13 +8,13 @@ import type { Role } from '@/types/interfacesv2';
 
 /*?=??QWQEGTDRHYIUOIFGDFCEFJGOIERPHKJNHTEJF*/
 export class RouterGuardService {
-	private: permissionServs: PermissionsService;
+	private permissionServs: PermissionService;
 /*?=??QWQEGTDRHYIUOIFGDFCEFJGOIERPHKJNHTEJF*/
 	constructor(private role:Role='default') {
-		 this.permissionServs = new PermissionsService(role);
+		 this.permissionServs = new PermissionService(role);
 	} 
 	/*?=??QWQEGTDRHYIUOIFGDFCEFJGOIERPHKJNHTEJF*/
-	globalGuard(
+	async globalGuard(
 		to: RouteLocationNormalized,
 		from: RouteLocationNormalized,
 		next: NavigationGuardNext
@@ -44,7 +44,7 @@ export class RouterGuardService {
 		
 		// Validar el Rol requerido
 		if(to.meta.role && to.meta.role!==authStore.role) {
-			console.warn('[Guardia de Ruteo]: Acceso Negado - El Rol es Incorrecto'):
+			console.warn('[Guardia de Ruteo]: Acceso Negado - El Rol es Incorrecto');
 			return next({name: 'PageError403'})
 		}
 		/*?=??QWQEGTDRHYIUOIFGDFCEFJGOIERPHKJNHTEJF*/

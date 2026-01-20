@@ -9,8 +9,8 @@
 	 	   	  <button v-for="type in REGISTRATION_TYPES"
 	 	   	    :key="type.id"
 	 	   	     :class="[
-	 	   	     	'selector-button':
-	 	   	     	  { 'active' registrationType === type.id}
+	 	   	     	'selector-button',  //  clase pre-procesada
+	 	   	     	  { 'active': registrationType === type.id} //clase condicional(sep condicion de clase dinamica)
 	 	   	     	 ]"
 	 	   	     	 :aria-selected="registrationType === type.id"
 	 	   	     	  role="tab"
@@ -46,8 +46,7 @@
 		 	   					     class="form-input" placeholder="Ingresa tú Nombre"
 		 	   					      required maxlength="50" :disabled="isSubmmitting" :aria-invalid="hasFieldError('name')"
 		 	   					      aria-describedby="name-error" >
-		 	   					<span v-if="hasFieldError('name')" id="name-error"
-		 	   					       id="name-error"  class="field-error">
+		 	   					<span v-if="hasFieldError('name')" id="name-error" class="field-error">
 		 	   						  {{getFieldError('name')}}
 		 	   					</span>
 		 	   				</div>
@@ -142,10 +141,10 @@
 							<p class="social-description">Inicia sesión mediante tú Cuenta Google para crear tu Perfil automáticamente</p>
 							<button class="social-button"
 								@click="handleGoogleLogin"
-								class="social-button google"
 								:disabled="isSubmmitting"
 								:aria-busy="isSubmmitting"
 							 >
+								<!-- class="social-button google" -->
 							
 							  <span class="social-icon">🔎</span>
 							  <span v-if="!isSubmmitting" >Continuar con Google</span>

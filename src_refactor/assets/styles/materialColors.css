@@ -1,9 +1,9 @@
-/**
+/** **
  * @file
  * @decription: configuracion de colores para el modulo de materiales
  * 
  * ESQUEMA DE COLORES
- * - Card Interno: Gris  semiintenso [1]
+ * - Card Interno: Gris  semiintenso 
  * - Card Externo: Azul Obscuro intenso
  * 
  * ESTUDIANTES
@@ -13,7 +13,7 @@
  * PROFESORES
  *  - Card Externo: Café Suave
  *  - Card Interno: Blanco semi-intenso
- * */
+ ** **/
   :root {
   	 /* ============================== */
      /*    COLORES GENERALES           */

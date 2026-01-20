@@ -42,9 +42,9 @@
 				  <label for="" class="src-only">Buscar Materiales</label>
 			     <input type="text" v-model="searchQuery" 
 			       class="search-input" placeholder="Buscar por nombre de material..."
-			       @input="handleSearch">
+			       @input="handleSearch">   
 			</div>
-
+			<!-- los tags inputs compuestos deberan dejar indicado el cierre -->
 			<div class="filters-container">
 				<div class="filter-group">
 					<label for="" class="filter-label">Ordenar por:</label>
@@ -221,7 +221,7 @@
 					<button class="notificacion-close"
 						@click="handleViewMaterial"
 						type="button"
-						 :aria-label="Cerrar Notificación"
+						 aria-label="Cerrar Notificación"
 					 >
 					 	✕
 					 </button>

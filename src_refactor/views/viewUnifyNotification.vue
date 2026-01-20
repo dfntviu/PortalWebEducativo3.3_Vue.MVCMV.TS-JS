@@ -109,13 +109,14 @@
 												  		<button class="w-full px-4 py-3 text-left">
 												  			<span class="text-lg">✓</span>
 												  			Marcar como leída
+												  		</button>
 												  			<button
 												  				  v-if="isTeacher && notification.estado"
 												  				  @click="openStatusModal(notification)"
 												  			   class="w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600" 
 												  			 >
 												  				Marcar como NO leída
-												  		</button>
+												  			</button>
 
 												  		<button @click="confirmDelete(notification.id) " class="w-full px-4 py-3 text-left hover:bg-red-50
 												  		dark:hover:bg-red-900/20 flex items-center gap-3 transitions-colors text-red-600 dark:text-red-400">
@@ -172,22 +173,21 @@
 										 		<div class="flex gap-3">
 										 			<button
 										 				@click="statusForm.estado=== 'aprobado'"
-										 				:class="[
-										 					'flex-1 px-4 py-3 rounded-lg fon-medium transition-all'
+										 				:class="['flex-1 px-4 py-3 rounded-lg font-medium transition-all',
 										 					  statusForm.estado=== 'aprobado'
 										 					   ? 'bg-green-600 text-white shadow-lg'
 										 					   :  'bg-gray-100 dark:bg-gray-700 text-gray-700'
-										 					      'dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+										 					     +'dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
 										 				]"
 										 			 > ✓  Aprobar</button>
 										 			<button
  														@click="statusForm.estado=== 'rechazado'"
  														:class="[
-										 					'flex-1 px-4 py-3 rounded-lg fon-medium transition-all'
+										 					'flex-1 px-4 py-3 rounded-lg font-medium transition-all',
 										 					  statusForm.estado=== 'rechazado'
 										 					   ? 'bg-green-600 text-white shadow-lg'
 										 					   :  'bg-gray-100  dark:bg-gray-700 text-gray-700'
-										 					      'dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+										 					     +'dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
 										 				]"
 										 			 >Rechazar</button>
 										 		</div>

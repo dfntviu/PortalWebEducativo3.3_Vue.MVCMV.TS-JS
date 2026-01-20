@@ -7,9 +7,9 @@
 					<div>
 						<h1 class="text-3xl">
 							<span class="text-4xl">📚
-						    </span>Mis Materiales
-					   </h1>
-					    <p class="text-gray-600">Gestiona tus Materiales Ac.</p>
+							 </span>Mis Materiales
+						</h1>
+						 <p class="text-gray-600">Gestiona tus Materiales Ac.</p>
 					</div>
 
 					<!-- Boton Crear Material -->
@@ -26,13 +26,13 @@
 							<div class="flex-1">
 								<h3 class="font-semibold text-red-800">Error</h3>
 								 <p class="text-sm text-red-700 dark:text-red-700 dark:text-red-300">
-								 	 {{error}}
+									 {{error}}
 								 </p>
 							</div>
 							<button class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
 								 ✕
 							</button>
-					 	</div>
+						</div>
 					</div>
 					<!-- Estadisticas -->
 					<div class="grid grid-cols2">
@@ -97,7 +97,7 @@
 							<!-- Botón Actualizar -->
 							<button class="px-6 py-3 bg-gray-100 hover:bg-gray-100 dark:bg-gray-700">
 							 Actualizar
-						    </button>
+							 </button>
 						</div>
 					</div>
 
@@ -106,13 +106,12 @@
 						<div class="flex flex-wrap gap-2">
 							<button v-for="tab in tabs" :key="tab.id"
 							 @click="activeTab = tab.id"
-							  :class="[
-							  	  'x-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center gap-2'
-							  	  activeTab === tab.id
-							  	   ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md transform scale-105'
-							  	   : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-600' 
-							  	       'dark:bg-gray-600 text-gray-700 dark:text-gray-300'
-							  	] "
+								:class="[ 'x-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center gap-2',
+									  activeTab === tab.id
+									  ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md transform scale-105'
+									  : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-600' 
+										 +'dark:bg-gray-600 text-gray-700 dark:text-gray-300'
+								]"
 							>	
 							<span class="text-xl">{{tab.icon}}</span>
 							 {{tab.label}}
@@ -152,10 +151,10 @@
 												<div class="text-6xl font-bold line-clamp mb-2"></div>
 												<h3 class="text-xl font-bold line-clamp">
 												 {{material.titulo}}
-											    </h3>
-											    <p class="text-indigo-100 text-sm line-clamp-2">
-											      {{material.description ||  'Sin descripción'}} 
-											    </p>
+												 </h3>
+												 <p class="text-indigo-100 text-sm line-clamp-2">
+													{{material.description ||  'Sin descripción'}} 
+												 </p>
 											</div>
 										</div>
 											<!-- Contenido del Material -->
@@ -178,59 +177,60 @@
 
 											<!-- Metadata -->
 											 <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-											 	<div class="flex items-center gap-2">
-											 		 <span>📅</span>
-											 	    <span>{{formateDate(material.createdAt)}}</span>
-											 	</div>
-											    <div v-if="material.views !== undefined" class="flex items-center gap-2">
-											    	  <span>👁️</span>
-											         <span>{{material.views}}</span>
-											     </div>
-											     <div v-if="material.downlonads !== undefined" class="flex items-center gap-2">
-											     	<span>⬇️</span>
-											     	<span>{material.downloads}</span>
-											     </div>
-											 <!-- </div>  de +-->
+												<div class="flex items-center gap-2">
+													 <span>📅</span>
+													 <span>{{formateDate(material.createdAt)}}</span>
+												</div>
+												 <div v-if="material.views !== undefined" class="flex items-center gap-2">
+													  <span>👁️</span>
+														<span>{{material.views}}</span>
+												  </div>
+												  <div v-if="material.downlonads !== undefined" class="flex items-center gap-2">
+													<span>⬇️</span>
+													<span>{material.downloads}</span>
+												  </div>
+											   </div>   <!--no siempre bien-->
 
 											 <!-- Mensaje de Rechazo (En construcción) -->
-											 <div class="p-3-bg-red-50 boder">
-											 	<p class="text-sm text-red-800 font-medium">
-											 	    Motivo del Rechazo:
-											 	</p>
-											 	<p class="text-sm text-red-700 dark:text-red-400"> 
-											 	  {{material.reactionReason}}
-											 	</p>
-											 </div>
+											<div class="p-3-bg-red-50 boder">
+												<p class="text-sm text-red-800 font-medium">
+													 Motivo del Rechazo:
+												</p>
+												<p class="text-sm text-red-700 dark:text-red-400"> 
+												  {{material.reactionReason}}
+												</p>
+											</div>
 
 											 <!-- Acciones -->
-											 <div class="flex gap-2">
-											 	<button
-											 	  @click="startEdit(material)"
-											 	>
-											 	  <div class="flex-1 px-4 py-3 bg-indigo-600 text-white rounded-lg">
-											 	  <span>✏️</span>
-											 	  Editar
-											 	 </button>
-											 	  <!-- Ver el Estado -->
-											 	 <button
-											 	 @click="viewStatus(material)"
-											 	 class="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-700 dark:hover:bg-gray-600"
-											 	 >
-											 	 	<span>ℹ️</span>
-											 	 	Estado
-											 	 </button>
-											 	 	<!-- Elimar materiales(del usuario propio) -->
-											 	 <button v-if="material.autorId === currentUserId"
-											 	    @click="confirmDelete(material)"
-											 	  class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg 
-											 	  font-medium transition-colors flex items-center justify-center">
-											 	 	<span v-else>🗑️</span>
-											 	 	{{ deleting ? 'Eliminando...' :  'Eliminar' }}
-											 	 </button>	
-											 	</div>
-											 </div>
+											<div class="flex gap-2">
+												<button
+												  @click="startEdit(material)"
+												>
+												  <div class="flex-1 px-4 py-3 bg-indigo-600 text-white rounded-lg">
+												    <span>✏️</span>
+												   </div> 
+												  Editar
+												 </button>
+												  <!-- Ver el Estado -->
+												 <button
+												  @click="viewStatus(material)"
+												  class="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-700 dark:hover:bg-gray-600"
+												 >
+													<span>ℹ️</span>
+													Estado
+												 </button>
+													<!-- Elimar materiales(del usuario propio) -->
+												 <button v-if="material.autorId === currentUserId"
+													 @click="confirmDelete(material)"
+												  class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg 
+												  font-medium transition-colors flex items-center justify-center">
+													<span v-else>🗑️</span>
+													{{ deleting ? 'Eliminando...' :  'Eliminar' }}
+												 </button>	
+											</div>
+											 
 										</div>
-									<!-- </div> -->
+									</div>
 								</TransitionGroup>
 							</div>
 						</div>
@@ -241,70 +241,70 @@
 								<div class="fixed inset-0 bg-black-50 backgroup-blur-sm flex items-center justify-center p-4 z-50">
 									<div class="bg-white rounded-2xl max-w-2xl w-full p-6">
 										  <div class="flex justify-between items-center mb-6">
-										  	<h3 class="text-2xl font-bold text-gray-900k flex items-center gap-3"> 
-										  		<span class="text-3xl">📺</span>
-										  		 Subir Nuevo Material
-										  	</h3>
-										  	<button class="text-gray-400 hover:text-gray-600 dark:hover-text-gray-300 text-2xl">
-										  		 ✕
-										  	</button>
+											<h3 class="text-2xl font-bold text-gray-900k flex items-center gap-3"> 
+												<span class="text-3xl">📺</span>
+												 Subir Nuevo Material
+											</h3>
+											<button class="text-gray-400 hover:text-gray-600 dark:hover-text-gray-300 text-2xl">
+												 ✕
+											</button>
 										  </div>
 
 										  <form action="">
-										  		<!-- Título -->
-										  	<div>
-										  		 <!-- La Descripcion -->
-										  		<label class="block text-sm font-medium text-gray-700 dark:text-gray-30 mb-2">Titulo</label>
-										  		<input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus-border-transparent">
-										  	</div>
-										  			<div>
-										  				<label for="" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-										  					 Descripcion(*)
-										  				</label>
-										  				<textarea  v-model="createForm.description" rows="4" required   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-trnsparent">
-										  				</textarea>
-										  		  </div>
+												<!-- Título -->
+											<div>
+												 <!-- La Descripcion -->
+												<label class="block text-sm font-medium text-gray-700 dark:text-gray-30 mb-2">Titulo</label>
+												<input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus-border-transparent">
+											</div>
+													<div>
+														<label for="" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+															 Descripcion(*)
+														</label>
+														<textarea  v-model="createForm.description" rows="4" required   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-trnsparent">
+														</textarea>
+												  </div>
 
-										  		  <!-- Tags(Etiquetas) -->
-										  		  <div>
-										  		   	 <label for="" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-										  		     Tags: Tg-1,Tg-2,Tg-3</label>
-										  		      <input type="text" class="w-full px-4 py-3 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-										  		 	</div>
+												  <!-- Tags(Etiquetas) -->
+												  <div>
+														 <label for="" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+													  Tags: Tg-1,Tg-2,Tg-3</label>
+														<input type="text" class="w-full px-4 py-3 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+													</div>
 
-										  		 	<div>
-										  		 		<label  class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">ArchivoPDF</label>
-										  		 		<div></div>
-										  		 		<input type="text">
-										  		 		<div>
-										  		 			<div class="text-5xl mb-3">📝</div>
-										  		 			<p class="text-gray-600 dark:text-gray-400 mb-2">Arrastra tu Material(PDF O Word) Aqui</p>
-										  		 			<button class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium  transition-colors">Seleccionar tú Archivo 
-										  		 			</button>
-										  		 		</div>
+													<div>
+														<label  class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">ArchivoPDF</label>
+														<div></div>
+														<input type="text">
+														<div>
+															<div class="text-5xl mb-3">📝</div>
+															<p class="text-gray-600 dark:text-gray-400 mb-2">Arrastra tu Material(PDF O Word) Aqui</p>
+															<button class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium  transition-colors">Seleccionar tú Archivo 
+															</button>
+														</div>
 
-										  		 		<div v-else class="flex items-center bg-gray-50 rounded-lg p-4">
-										  		 			<div class="flex items-center gap-3">
-										  		 				<span class="text-3xl">📄</span>
-										  		 				<div class="text-lef">
-										  		 					<p class="font-medium text-gray-900 dark:text-white">
-										  		 						  {{createForm.file.name}}
-										  		 					</p>
-										  		 					<p class="text-sm text-gray-600 dark:text-gray-400">{{formatFileSize(createrForm.file.size)}}</p>
-										  		 				</div>
-										  		 				<button class="text-red-600 hover:text-red-700 text">x</button>
-										  		 			</div>
-										  		 		</div>
-										  		 	</div>
-										  		 	 <!-- Botones -->
-										  		 	<div class="flex gap-3 pt-4">
-										  		 		<button class="flex-1 px-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg font-medium transition-colors">Cancelar</button>
-										  		 		<button>
-										  		 			 <span>⏳</span>
-										  		 			 <span>📤</span>
-										  		 			 <span>{{uploading: ? 'Subiendo': 'Subir Material'}}</span>
-										  		 		</button>
-										  		 	</div>
+														<div v-else class="flex items-center bg-gray-50 rounded-lg p-4">
+															<div class="flex items-center gap-3">
+																<span class="text-3xl">📄</span>
+																<div class="text-lef">
+																	<p class="font-medium text-gray-900 dark:text-white">
+																		  {{createForm.file.name}}
+																	</p>
+																	<p class="text-sm text-gray-600 dark:text-gray-400">{{formatFileSize(createrForm.file.size)}}</p>
+																</div>
+																<button class="text-red-600 hover:text-red-700 text">x</button>
+															</div>
+														</div>
+													</div>
+													 <!-- Botones -->
+													<div class="flex gap-3 pt-4">
+														<button class="flex-1 px-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg font-medium transition-colors">Cancelar</button>
+														<button>
+															 <span>⏳</span>
+															 <span>📤</span>
+															 <span>{{uploading ? 'Subiendo': 'Subir Material'}}</span>
+														</button>
+													</div>
 										  </form>
 									</div>
 								</div>
@@ -370,7 +370,7 @@
 						<Teleport to="body">
 							<Transition name="modal">
 								<div  v-if="showDeleteModal && materialToDelete" 
-								    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50" @click.self="showStatusModal = false">
+									 class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50" @click.self="showStatusModal = false">
 									<div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl  max-w-md w-full p-6">
 										<div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
 											<div class="text-center mb-6">
@@ -384,7 +384,7 @@
 												<button  @click="controllDelete"
 														:disabled="delentig"
 												 class="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 dark:gray-700 text-white rounded-lg font-medium
-												 	transition-colors disabled:opacity-50 flex items-center justify-center font-medium gap-2"
+													transition-colors disabled:opacity-50 flex items-center justify-center font-medium gap-2"
 												>
 												<span v-if="delentig">⏳</span>
 											  <span v-else>🗑️</span>
@@ -440,80 +440,80 @@
 	// ================
 	const materials = computed(()=> materialStore.materials);
 	const  loading  = computed(()=> notificationStore.loading);
-    const  error    = computed(()=> materialStore.error);
-    const  currentUserId = computed(()=> authStore.user?.uid);
+	 const  error    = computed(()=> materialStore.error);
+	 const  currentUserId = computed(()=> authStore.user?.uid);
 
-    const stats = computed(()=> materialStore.myStats);
+	 const stats = computed(()=> materialStore.myStats);
 
-    const tabs = computed(() => [
-    	{
-    	    id: 'all' as const,
-    	    label: 'Todos',
-    	    icon: '📚',
-    	    count: materialStore.materials.length
-    	},
-    	{
-    		id: 'mine' as const,
-    		label: 'Aprobados',
-    		icon: '📝',
-    		count: materialStore.approvedMaterials.length
-    	},
-    	{
-    		  id: 'appoved' as const,
+	 const tabs = computed(() => [
+		{
+			 id: 'all' as const,
+			 label: 'Todos',
+			 icon: '📚',
+			 count: materialStore.materials.length
+		},
+		{
+			id: 'mine' as const,
+			label: 'Aprobados',
+			icon: '📝',
+			count: materialStore.approvedMaterials.length
+		},
+		{
+			  id: 'appoved' as const,
 			label: 'Aprobados'
 			icon: '✅',
 			count: materialStore.approvedMaterials.length
-    	},
-    	{
-    	  id: 'pending' as const,
+		},
+		{
+		  id: 'pending' as const,
 		  label: 'Pendientes',
 		  icon: '⌛',
 		  count materialStore.pendingMaterial.length
-    	},
-    ]);
+		},
+	 ]);
 
-    const filteredMaterials = computed(() => {
-    	let filtered: Material[] = [];
+	 const filteredMaterials = computed(() => {
+		let filtered: Material[] = [];
 
-    	// Filtrar por tab
-    	switch(adjectiveTab.value){
-    		case 'mine':
-    			filtered = materialStore.myMaterials;
-    		break;
+		// Filtrar por tab
+		switch(adjectiveTab.value){
+			case 'mine':
+				filtered = materialStore.myMaterials;
+			break;
 
-    		case 'approved': 
-    			 filtered = materialStore.approvedMaterials;
-    		break;
+			case 'approved': 
+				 filtered = materialStore.approvedMaterials;
+			break;
 
-	    	case 'pending':
-	    		filtered = materialStore.pendingMaterials;
-	    	break;
+			case 'pending':
+				filtered = materialStore.pendingMaterials;
+			break;
 
-	    	default:
-	    		filtered = materials.value;
-	    	  break;
-    	}
+			default:
+				filtered = materials.value;
+			  break;
+		}
 
-    	// Filtrar por Busqueda
-    	if (searchQuery.value.trim()) {
-    	 	 const query = searchQuery.value.toLowerCase();
-    	 	  	filtered = filtered.filter(m => 
-    	 	  		m.titulo.toLowerCase().includes(query)   ||
-    	 	  		m.description.toLowerCase().includes(query) ||
-    	 	  		m.tags?.some(tag =>tag.toLowerCase().includes(query))
-    	 	  	);
-    	}
+		// Filtrar por Busqueda
+		if (searchQuery.value.trim()) {
+			 const query = searchQuery.value.toLowerCase();
+				filtered = filtered.filter(m => 
+					m.titulo.toLowerCase().includes(query)   ||
+					m.description.toLowerCase().includes(query) ||
+					m.tags?.some(tag =>tag.toLowerCase().includes(query))
+				);
+		}
 
-    		return filtered;
-    }); 
+			return filtered;
+	 }); 
 
-    const canSumbitCreate = computed(() => {
-    	 createForm.value.titulo.trim() &&
-    	 createForm.value.description.trim() &&
-    	 createForm.value.file !== undefined;
-    });
+	 const canSumbitCreate = computed(() => {
+		 createForm.value.titulo.trim() &&
+		 createForm.value.description.trim() &&
+		 createForm.value.file !== undefined;
+	 });
 
-    // ================
+	 // ================
 	//     METHODS
 	// ================
 
@@ -553,9 +553,9 @@
 
 	const manipulateFileSelect =(event:Event)=>{
 		const target = event.target as HTMLInputElement;
-		    if(target.files && target.files[0]){
-		  	  createForm.value.file = target.files[0];
-		    }
+			 if(target.files && target.files[0]){
+			  createForm.value.file = target.files[0];
+			 }
 	}
 
 	const controllFileDrop =(event: DragEvent)=>{
@@ -576,20 +576,20 @@
 
 		uploading.value = true;
 		try{
-		 	// Procesar Tags
-		 	const tags = tagsInput.value
-		 	 .split(',')
-		 	 .map(t =>t.trim());
-		 	 .filter(t>t.length > 0);
+			// Procesar Tags
+			const tags = tagsInput.value
+			 .split(',')
+			 .map(t =>t.trim());
+			 .filter(t>t.length > 0);
 
-		 	const materialData = {
-		 	 	title:  createForm.value.title.trim(),
-		 	 	description: createForm.value.description.trim(),
-		 	 	tags,
-		 	 	category: createForm.value.category.trim(),
-		 	}
+			const materialData = {
+				title:  createForm.value.title.trim(),
+				description: createForm.value.description.trim(),
+				tags,
+				category: createForm.value.category.trim(),
+			}
 
-		 	   await materialStore.uploadMaterialFile(!createForm.value.file, materialData);
+				await materialStore.uploadMaterialFile(!createForm.value.file, materialData);
 		}catch(error){
 			console.error('Error al crear el Material:',error);
 		}finally{
@@ -625,8 +625,8 @@
 			const success =  await materialStore.deleteMaterial(materialToDelete.value.uid);
 			 
 			 if(success){
-			 	showDeleteModal.value = false;
-			 	materialToDelete.value = null;
+				showDeleteModal.value = false;
+				materialToDelete.value = null;
 			 }
 		}catch(error){
 			console.error('Error al eliminar material: ', error);
@@ -670,14 +670,14 @@
 		if(!date) return 'Fecha no disponible';
 
 		 try{
-		 	const d = date.toDate ? date.toDate() : new Date(date);
-		 	 return d.toLocaleDateString('es-MX', {
-		 	 	day: 'numeric',
-		 	 	moth: 'short',
-		 	 	year: 'numeric'
-		 	 });
+			const d = date.toDate ? date.toDate() : new Date(date);
+			 return d.toLocaleDateString('es-MX', {
+				day: 'numeric',
+				moth: 'short',
+				year: 'numeric'
+			 });
 		 }catch(error){
-		 	return 'Fecha inválida';
+			return 'Fecha inválida';
 		 }
 	}
 
@@ -686,7 +686,7 @@
 		 const k = 1024;
 		  const sizes = ['Bytes','KB','MB', 'GB'];
 		  const i = Math.floor(Math.log(bytes) / Math.log(k));
-		   return Math.round(bytes/ Math.pow(k,i) * 100 / 100 +' '+ sizes[i]);
+			return Math.round(bytes/ Math.pow(k,i) * 100 / 100 +' '+ sizes[i]);
 	};
 
 	// ================
@@ -701,41 +701,41 @@
  <style scoped> 
   .material-list-enter-active,
   .material-list-leave-active{
-  	 transition: all 0.3s eaase;
+	 transition: all 0.3s eaase;
   }
 
   .material-list-enter-from{
-  	opacity: 0;
-  	transform: translateY(-20px);
+	opacity: 0;
+	transform: translateY(-20px);
   }
 
   .material-list-leave-to {
-  	opacity: 0;
-  	transform: scale(0.9);
+	opacity: 0;
+	transform: scale(0.9);
   }
 
 
   /* Animación del Modal */
   .material-enter-active,
   .modal-leave-active{
-  	 transition: all 0.3s eaase; 
+	 transition: all 0.3s eaase; 
   }
 
   .modal-enter-from,
   .modal-leave-to {
-  	opacity: 0;
+	opacity: 0;
   }
 
   .modal-enter-from > div,
   .modal-leave-to > div {
-  	 transform: scale(0.9);
+	 transform: scale(0.9);
   }
 
   /* Utilidad Abrazadera en linea */
-   .line-camp-2 {
-   		display: -web-kit-box;
-   		-web-wit-line-camp: 2;
-   		-web-wit-box-orient: vertical;
-   		overflow: hidden;
-   }
+	.line-camp-2 {
+			display: -web-kit-box;
+			-web-wit-line-camp: 2;
+			-web-wit-box-orient: vertical;
+			overflow: hidden;
+	}
  </style>

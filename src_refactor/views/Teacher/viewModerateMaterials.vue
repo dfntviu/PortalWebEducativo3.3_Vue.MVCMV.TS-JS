@@ -142,7 +142,6 @@
 				 	  	<div class="flex items-center text-sm">
 				 	  		<svg class="w-4 text-gray-400 mr-2">
 				 	  			<path stroke-linecap="round" stroke-linejoin="round" 
-				 	  			  stroke-linejoin="round"
 				 	  			  stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
 				 	  			></path>
 				 	  		</svg>
@@ -230,20 +229,19 @@
 	     				</div>
 	     			</div>
 	     		</header>
-
 	     		<!-- Seccion de Comentarios del rol Profesor-->
 	     		<div class="flex-1 overflow-y-auto px-6 py-4">
 	     			<section class="comentarios-section">
 	     				<h3 class="text-lg font-semibold text-gray-900 mb-4">Comentarios de Retroalimentacion</h3>
 	     					<!-- Lista de Comentarios existentes -->
 	     				<div v-if="comentariosMaterialActual.length>0">
-	     					<TransitionGroup name="comentario-list">
+	     					<TransitionGroup name="comentario-list"> <!-- ??-->
 	     						<article 
 	     						  v-for="comentario in comentariosMaterialActual"
 	     						  :key="comentario.id"
 	     						   class="comentario-card p-4 rounded-lg border"
-	     						   :class="{
-	     						   	  'bg-yellow-50 border-yellow-300'
+	     						   :class="{  
+	     						   	  'bg-yellow-50 border-yellow-300': comentario.destacado,
 	     						   	  'bg-yellow-50 border-gray-200' : !comentario.destacado}
 	     						   ">
 
@@ -299,7 +297,7 @@
 	     				</div>
 
 	     				<div class="nuevo-comentario-form bg-white border-gray-300 rounded-lg-p4">
-	     					<h4 class="text-sm font-semibold text-gray-700 mb-3">Agregar Comentario
+	     					<h4 class="text-sm font-semibold text-gray-700 mb-3">Agregar Comentario</h4>
 	     						
 	     					<textarea v-model="newComment.message" rows="4"
 	     					placeholder="Escribe tu retroalimentación para el Alumno"

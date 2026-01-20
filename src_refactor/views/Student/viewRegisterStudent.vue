@@ -5,9 +5,9 @@
           <button class="btn-nav"> Editar el Perfil </button>
        </nav>
 
-    // ═══════════════════════════════════════
-    //        CONTENEDOR DE PANELES
-    // ═══════════════════════════════════════
+     <!-- =======================================
+              CONTENEDOR DE PANELES
+          ======================================= -->
 
       <div class="contenedor-paneles">
           <Transition>
@@ -20,9 +20,9 @@
           </Transition>
       </div>
 
-  <!-- ═════════════════════════════════════
+  <!-- =====================================
          MODAL DE CAMBIO DE CONTRASENIA
-       ═════════════════════════════════════ -->
+       ===================================== -->
      <ChangePasswordModal
        is-open="isPasswordModalOpen"
        @close="closePasswordModal"
@@ -30,7 +30,6 @@
      />
    </div>
 </template>
-
 
 
 <script setup lang="ts">
@@ -126,22 +125,24 @@
 
 </script>
 
-<style>
-   .vista-estudiantes {
+<style scoped>
+  /* .vista-estudiantes {
       min-height: 100vh;
-      background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       padding: 2rem 1rem;
    }
-   /* ════════════════════════════════════
-          NAVEGACION ENTRE PANELES
-      ════════════════════════════════════*/
+   /* ------------------------------------ 
+            NAVEGACION ENTRE PANELES 
+      ------------------------------------ 
    .navegacion-paneles {
      display: flex;
      justify-content: center;
      gap: 1rem;
      margin-bottom: 2rem;
      flex-wrap: wrap;
-   }
+   }*/
+
+   .vista-estudiantes { padding: 2rem 1rem; }
 
    .btn-nav {
       padding: 0.75rem 1.5rem;
@@ -170,12 +171,12 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
    }
 
-   .btn-nav.activo: hover {
+   .btn-nav.activo:hover {
       transform: translateY(-2px);
    }
-   /* ════════════════════════════════════
+   /* ====================================
           CONTENEDOR ENTRE PANELES
-      ════════════════════════════════════*/
+      ====================================*/
    .contenedor-paneles { 
       max-width: 800px;
       margin: 0 auto;
@@ -186,12 +187,12 @@
       width: 100%;
    }  
 
-  /* ══════════════════════════════════
+  /* ==================================
        ANIMACIONES DE  TRANSICION
-     ══════════════════════════════════*/ 
+     ==================================*/ 
 
    .slide-fade-enter-active,
-   .slide-fade-leave-avtive {
+   .slide-fade-leave-active {
       transition: all 0.4s cubic-bezier(0.4,0, 0.2, 1);
    }
 
@@ -206,9 +207,9 @@
    }
 
 
-   /* ═══════════════════════════════════
+   /* ===================================
           RESPONSIVO
-      ═══════════════════════════════════*/
+      ===================================*/
       @media (max-width: 768px) {
         .vista-estudiantes{
            padding: 1rem 0.5rem;

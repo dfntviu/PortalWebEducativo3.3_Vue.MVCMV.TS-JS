@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue';
  	plugins: [vue()],
  	resolve:{
  		alias: {
- 			'@': '/src_refactor'  //src-refactor/ >> subdirectorio paralelo
+ 			'@': '/src_refactor'  //src-refactor >> Es el subdirectorio paralelo
  		} 
  	},
  	server:{

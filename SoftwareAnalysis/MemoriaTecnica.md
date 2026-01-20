@@ -1,0 +1,4 @@
+ ## ==============================
+ ##	  MEM. TECNICA
+ ## ==============================
+Posterior a la integración completa mediante el ecosistema Vite+Vue.js+TypeScript, el proyecto presentaba una estructura funcional pero con evidentes oportunidades de optimización. A pesar de contar con servicios completamente implementados, gran parte de las funciones mostraban patrones similares entre sí, evidenciando una simetría arquitectónica que sugería acoplamiento excesivo. Esta observación permitió identificar la posibilidad de consolidar la arquitectura de servicios: de diez servicios originales a cinco servicios unificados, organizados por rol único en lugar de segregarlos por tipo específico de usuario (profesor o estudiante).

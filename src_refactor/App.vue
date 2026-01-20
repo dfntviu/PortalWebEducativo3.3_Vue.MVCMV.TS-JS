@@ -22,14 +22,14 @@
       <!--      PIE DE PAGINA       -->
       <!-- ========================== -->
        <footer   v-if="isAuthenticated"  class="app-footer">
-           <p>copy; {{{currentYear}}} Portal Web Educativo FI-UAEMEX</p>
+           <p>copy; {{currentYear}} Portal Web Educativo FI-UAEMEX</p>
        </footer>
     </div>
 </template>
 <script setup lang="ts">  // Code_new: 2025-Nov-02
   import { computed, onMounted } from 'vue';
-  import { useAuthStore } from '@/stores/authStore.ts';
-  import LayoutNavBar from '@/components/LayoutNavBar.vue';
+  import { useAuthStore } from './stores/authStore3.ts';
+  import LayoutNavBar from './components/LayoutNavBar.vue';
   
   // ===============
   //    COMPOSABLES

@@ -53,6 +53,7 @@
 			   	  			</label>
 						    </div>
 			   	    </div>
+			   	  </div>
 
 			   	    <!-- Mensajes de Error -->
 			   	    <div class="alert alert-error">
@@ -198,7 +199,7 @@
 					 // Inicia Sesion automaticamente a los 2.5 segundos
 					  setTimeout(()=>{
 					  	 controllSubmit();
-					  }2500);
+					  },2500);
 				}else {
 				  error.value = result.message;
 				}

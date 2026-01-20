@@ -1,7 +1,7 @@
-import  LoginMultiusuario  from '@/views/LoginMultiusuario.vue';
-import  viewProfileUser from '@/views/viewProfileUser.vue';
-import  HomeView from '@/views/HomeView.vue'
-import  viewUnifyNotification from '@/views/viewUnifyNotification.vue' //* notificacion ambos roles
+import  LoginMultiusuario  from '/views/LoginMultiusuario.vue';
+import  viewProfileUser from '/views/viewProfileUser.vue';
+import  HomeView from '/views/HomeView.vue'
+import  viewUnifyNotification from '/views/viewUnifyNotification.vue' //* notificacion ambos roles
   
   // ###  FILE_ROUTER_MAIN ###
 export const route_main = [

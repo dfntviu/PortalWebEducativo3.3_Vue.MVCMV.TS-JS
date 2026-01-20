@@ -29,15 +29,15 @@
 		<button 
 	        class="mobile-menu-toggle" 
 	        @click="mobileMenuOpen = !mobileMenuOpen"
-	        :aria-label="mobileMenuOpen ? 'Cerrar Menú' : 'Abrir Menú'"
+	        :aria-label='`${mobileMenuOpen}` ? "Cerrar Menú" : "Abrir Menú"'
 	      >
 	        <span class="hamburger-icon">
 	          {{ mobileMenuOpen ? '✕' : '☰' }}
 	        </span>
       	</button>
 
-        <div class="navbar-links" :class=" 'mobile-open': mobileMenuOpen">
-      		<router-link to="/" class="nav-link" @click="closeMobileMenu" />
+        <div class="navbar-links" :class="{'mobile-open': mobileMenuOpen }">
+      		<router-link to="/" class="nav-link" @click="closeMobileMenu" >
 				<span class="nav-icon">🏠</span>
 				<span>Inicio</span>
 			</router-link>
@@ -118,7 +118,7 @@
 	            >
 	             <span class="nav-icon">🔩</span>
 		           <span>Moderar Materiales</span>
-	           <router-link/>
+	           </router-link>
 
 	            <!-- Evaluar Comentarios -->
 	 			<router-link 
@@ -128,23 +128,22 @@
 	            >
 	               <span class="nav-icon">💬</span>
 		           <span>Analisis de Comentarios</span>
-	            <router-link/>
+	            </router-link>
 
-	             <!-- Ver  Materiales Personale -->
-	 			<router-link 
-	             to="/view-teacher-adm-materials" 
+	             <!-- Ver  Materiales Personales -->
+	 			<router-link to="/view-teacher-adm-materials" 
 	             class="nav-link" 
 	             @click="closeMobileMenu"
 	            >
 	              <span class="nav-icon">👥</span>
 		          <span>Admin. Alumnos</span>
-	           <router-link/>
+	           </router-link>
 		    </template>
 		</div>
 
-	    <div class="navbar-actions desktop-only">
+	   <div class="navbar-actions desktop-only">
 	    	 <!-- Botón de Notificaciones -->
-	         <button
+	      <button
 	            class="action-btn notifications-btn"
 	            @click="toggleNotifications"
 	            :title="unreadCount > 0 ? `${unreadCount} notificaciones sin leer` : 'Notificaciones'"
@@ -153,10 +152,10 @@
 	            <span v-if="unreadCount > 0" class="notification-badge">
 	              {{ unreadCount > 9 ? '9+' : unreadCount }}
 	            </span>
-	        </button>
+	      </button>
 
 	          <!-- Menú de Usuario -->
-	        <div class="user-menu" ref="userMenuRef">
+	      <div class="user-menu" ref="userMenuRef">
 	            <button 
 	              class="user-avatar" 
 	              @click="userMenuOpen = !userMenuOpen"
@@ -197,18 +196,18 @@
 		            			 <button class="dropdown-item logout-item">
 		            			 		<span class="item-icon">🚪</span>
 		            			 		<span>Cerrar Sesión</span>
-		            			 	</span>
+		            			 	<!-- </span> -->
 		            			</button>
 	            	    </div>
 	            	<!-- </div> -->
-	            <transition/>
-	    	</div>
+	            </transition>
+	    	 </div>
 
 	    <!-- ====================================== -->
 	    <!--     	ACCIONES DE USUARIO (MOBILE)     -->
 	    <!-- ====================================== -->
 
-	    <div class="navbar-actions mobile-only">
+	     <div class="navbar-actions mobile-only">
 	        <button
 	          class="action-btn notifications-btn"
 	          @click="toggleNotifications"
@@ -235,15 +234,15 @@
 	    <!-- ====================================== -->
 	    <!--     	PANEL DE NOTIFICACIONES         -->
 	    <!-- ====================================== -->
-	    <transition name="slide">
-	    	<div v-if="notificationsOpen" class="notifications-panel">
-	    		<div class="panel-header">
-	    			<h3>Notificaciónes</h3>
-	    			<button class="close-btn">X</button>
-	    		</div>
-	    	</div>
+	      <transition name="slide">
+	    	   <div v-if="notificationsOpen" class="notifications-panel">
+	    		   <div class="panel-header">
+	    			   <h3>Notificaciónes</h3>
+	    			   <button class="close-btn">X</button>
+	    		   </div>
+	    	   </div>
 
-		    <div class="panel-content">
+		     <div class="panel-content">
 		    	<!-- Integración con el Areá de Notificaciónes -->
 		    	<div  v-if="notifications.length === 0" class="panel-placeholder">
 		    		<span class="placeholder-icon">🔔</span>
@@ -257,7 +256,7 @@
 		    		  class="notification-item"
 		    		  :class="{ 'unread': !notification.read }"
 		    		  >
-		    		  <div class="notification-content">
+		    		   <div class="notification-content">
 				    			<p class="notification-title">
 				    				{{notification.title}}
 				    			</p>
@@ -267,11 +266,12 @@
 		    			 	 <span class="notification-time">
 		    					{{notification.time}}
 		    			  	</span>
-		    		  </div>
+		    		   </div>
 		    		</div>
 		    	</div>
 		    </div>
-		</transition>
+		   </transition>
+	   </div>
 	</nav>
 </template>
 

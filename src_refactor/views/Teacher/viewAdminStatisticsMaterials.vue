@@ -38,181 +38,182 @@
 						</div>
 					</div>
 				</div>
-		   <!-- Filtros y Busqueda -->
-			<div class="filters-section">
-				<div class="card-int-teacher filter-card">
-					<h2 class="section-tittle">
-						<span class="icon">🔍</span>
-						Filtros & Busqueda</h2>
+		   		<!-- Filtros y Busqueda -->
+				<div class="filters-section">
+					<div class="card-int-teacher filter-card">
+						<h2 class="section-tittle">
+							<span class="icon">🔍</span>
+							Filtros & Busqueda</h2>
 
-					<div class="filter-grid">
-						<!-- Selector de Filtro -->
-						<div class="filter-field">
-							<label for="filter" class="field-label">Filtrar por:</label>
-							<select id="filter" v-model="selectedFilter" @change="applyFilter" class="filter-select">
-								<option value="MaterialFilter.ALL">Todos los Materiales</option>
-								<option value="MaterialFilter.PENDING">Pendientes y en Revisión</option>
-								<option value="MaterialFilter.APPROVED">Aprobados</option>
-								<option value="MaterialFilter.REJECTED">Rechazados</option>
-								<option value="MaterialFilter.TODAY">Materiales de Hoy</option>
-								<option value="MaterialFilter.LAST_WEEK">La última Semana</option>
-							</select>
+						<div class="filter-grid">
+							<!-- Selector de Filtro -->
+							<div class="filter-field">
+								<label for="filter" class="field-label">Filtrar por:</label>
+								<select id="filter" v-model="selectedFilter" @change="applyFilter" class="filter-select">
+									<option value="MaterialFilter.ALL">Todos los Materiales</option>
+									<option value="MaterialFilter.PENDING">Pendientes y en Revisión</option>
+									<option value="MaterialFilter.APPROVED">Aprobados</option>
+									<option value="MaterialFilter.REJECTED">Rechazados</option>
+									<option value="MaterialFilter.TODAY">Materiales de Hoy</option>
+									<option value="MaterialFilter.LAST_WEEK">La última Semana</option>
+								</select>
+							</div>
+						</div>
+						<!-- Busqueda -->
+						<div class="search-field">
+							<label for="search" class="field-label">Buscar:</label>
+							<input type="text" v-model="searchQuery"  placeholder="Busq. por Consulta" class="search-input"
+							 @input="manipulateSearch">
 						</div>
 					</div>
-					<!-- Busqueda -->
-					<div class="search-field">
-						<label for="search" class="field-label">Buscar:</label>
-						<input type="text" v-model="searchQuery"  placeholder="Busq. por Consulta" class="search-input"
-						 @input="manipulateSearch">
+				     <!-- Filtro Activo-->
+					<div class="active-filter">
+						<span class="filter-badge">
+						 📌Filtro activo:{{materialStore.currentFilterName}}
+						</span>
+						<button @click="clearFilter" class="btn-clear-filter">
+						 Limpiar</button>
 					</div>
 				</div>
-			     <!-- Filtro Activo-->
-				<div class="active-filter">
-					<span class="filter-badge">
-					 📌Filtro activo:{{materialStore.currentFilterName}}
-					</span>
-					<button @click="clearFilter" class="btn-clear-filter">
-					 Limpiar</button>
+			</div>
+			<!-- Mensaje de Error -->
+			<transition>
+				<div class="alert alert-error">
+					<button @click="materialeStore.clearError()" class="alert-close">✕</button>
+				</div>
+			</transition>	
+			<!-- Lista de Materiales -->
+			<div class="materiales-section">
+				<div class="section-header">
+					<h2 class="section-title"><span class="icon">📁</span>
+						Materiales ({{displayedMaterials.length}})
+					</h2>
+
+					<div class="header-actions">
+						<button>🔄️Actualizar</button>
+					</div>
+				</div>
+				<!-- Loading State --> 
+				<div v-if="materialStore.loading && materialStore.hasMaterials" class="loading-state">
+					<div class="spinner"></div>
+					 <p>Cargando Materiales...</p>
+				</div>
+
+				<!-- Estado Vacio -->
+				<div v-if="!materialStore.hasMaterials" class="empty-state">
+				 	  <span class="empty-icon">🖥️</span>
+				 	  <h3>Lo siento,NO se ECONTRARON Materiales</h3>
+				 	  <p>{{getEmptyStateMessage}}</p>
+				</div>
+
+				<div v-else class="materials-grid">
+				 	<div v-for="material in displayedMaterials" :key="material.uid" class="card-int-teacher material-card">
+				 		 <!-- Header del Material -->
+				 		<div class="material-header">
+				 		 	<h3 class="material-title">{{material.titulo}}</h3>
+				 		 	 <span :class="['status-badge', `badge- ${material.status}`]" >
+				 		 	   {{getStatusText(material.uid)}}
+				 		 	 </span>
+				 		</div>
+
+				 		<!-- Informacion Autor -->
+				 		<div class="material-autor">
+				 			<span class="author-icon">👤</span>  <!-- sad-->
+				 			<span class="author-name">{{material.autorNombre| 'Sin Autor'}} </span>
+				 		</div>
+				 		<!-- Descripcion -->
+				 		<p v-if="material.description" class="material-description">
+				 		 {{material.description}}
+				 	    </p>
+				 		<!-- Metadata -->
+				 		<div class="material-metadata">
+				 			<span class="metadata-item">
+				 		     📅 Creado: {{formateDate(material.createdAt)}}
+				 			</span>
+				 			<span  v-if="material.moderateAt" class="metadata-item">
+				 			 ✔️ Moderado: {{formateDate(material.createdAt)}}
+				 			</span>
+				 			<span  v-if="material.tags?.length" class="metadata-item">
+				 			 🏷️ {{materials.join(', ')}}
+				 			</span>
+				 		</div>
+				 		<!-- Rechazo(Si Aplica) -->
+				 		<div v-if="material.status === 'rejected'  && material.rejectionReason" class="rejection-reason">
+				 			<strong>Razón del Rechazo</strong>
+				 				<p>{{material.reactionReason}}</p>
+				 		</div>
+				 		<!-- Utilidad: Acciones de Moderación -->
+				 		<div class="moderation-actions">
+				 			<!-- Para materiales Pendientes -->
+		 					<template>
+		 						<button
+		 						  @click="utilityModerateApprove(material)"
+		 						  class="btn-action btn-approve"
+		 						  >{✅Aprobar}
+		 						</button>
+		 						<button class="btn-action btn-reject">
+		 						  ❌Rechazar
+		 					    </button>
+		 					</template>
+		 						<!-- Para Materiales Moderados -->
+		 					<template v-else-if="material.status !== pending">
+		 						<button @click="manipulateRevert(material)" class="btn-action btn-revert">
+		 							🔄️ Revertir
+		 						</button>
+		 					</template>
+		 					<!-- Acciones comunes -->
+		 					<button @click="ApplyMaterialView(material)" class="btn-action btn-view">👁️ Ver</button>
+		 					<button @click="ApplyMaterialEdit(material)" class="btn-action btn-edit">✏️ Editar</button>
+				 		</div>		
+				 	</div>
 				</div>
 			</div>
+
+			<transition class="modal">
+				<div class="modal-overlay" v-if="showRejectModal">
+					<div  class="modal-content" @click.stop>
+						<div class="modal-header">
+							<h3> ❌ Rechazar Material</h3>
+							<button  @click="closeRejectModal" class="modal-close">✕</button>
+						</div>
+						<div class="modal-body">
+							 <p>
+							 	<strong>Material: </strong>{selectedMaterial?.titulo}
+							 </p>
+							 <p>
+							 	<strong>Autor:</strong>{selectedMaterial?.autorNombre}
+							 </p>
+						</div>
+
+						<div class="form-field">
+							<label for="">Razón del Rechazo</label>
+							<textarea  id="rejection-reason" v-model="rejectionReason" 
+							  placeholder="Explica porque se rechazo este material..." 
+							   class="field-text-area"  
+							   rows="4" required></textarea>
+						</div>
+					</div>
+						<!-- Descomentar |--Pendiente--| -->
+					<!-- <div class="modal-actions">
+						<button @click="closeReajectModal" class="btn-cancel">
+						  Cancelar
+						</button>
+						<button  @click="confirmReject" class="btn-confirm-reject">
+						  Confirmar Rechazo
+						</button>
+					</div> -->
+				</div>
+			</transition>
+
 		</div>
-		<!-- Mensaje de Error -->
-		<transition>
-			<div class="alert alert-error">
-				<button @click="materialeStore.clearError()" class="alert-close">✕</button>
-			</div>
-		<transition/>	
-		<!-- Lista de Materiales -->
-		<div class="materiales-section">
-			<div class="section-header">
-				<h2 class="section-title"><span class="icon">📁</span>
-					Materiales ({{displayedMaterials.length}})
-				</h2>
-
-				<div class="header-actions">
-					<button>🔄️Actualizar</button>
-				</div>
-			</div>
-			<!-- Loading State --> 
-			<div v-if="materialStore.loading && materialStore.hasMaterials" class="loading-state">
-				<div class="spinner"></div>
-				 <p>Cargando Materiales...</p>
-			</div>
-
-			<!-- Estado Vacio -->
-			 <div v-if="!materialStore.hasMaterials" class="empty-state">
-			 	  <span class="empty-icon">🖥️</span>
-			 	  <h3>Lo siento,NO se ECONTRARON Materiales</h3>
-			 	  <p>{{getEmptyStateMessage}}</p>
-			 </div>
-
-			 <div v-else class="materials-grid">
-			 	<div v-for="material in displayedMaterials" :key="material.uid" class="card-int-teacher material-card">
-			 		 <!-- Header del Material -->
-			 		<div class="material-header">
-			 		 	<h3 class="material-title">{{material.titulo}}</h3>
-			 		 	 <span :class="['status-badge', `badge- ${material.status}`]" >
-			 		 	   {{getStatusText(material.uid)}}
-			 		 	 </span>
-			 		</div>
-
-			 		<!-- Informacion Autor -->
-			 		<div class="material-autor">
-			 			<span class="author-icon">👤</span>  <!-- sad-->
-			 			<span class="author-name">{{material.autorNombre| 'Sin Autor'}} </span>
-			 		</div>
-			 		<!-- Descripcion -->
-			 		<p v-if="material.description" class="material-description">
-			 		 {{material.description}}
-			 	    </p>
-			 		<!-- Metadata -->
-			 		<div class="material-metadata">
-			 			<span class="metadata-item">
-			 		     📅 Creado: {{formateDate(material.createdAt)}}
-			 			</span>
-			 			<span  v-if="material.moderateAt" class="metadata-item">
-			 			 ✔️ Moderado: {{formateDate(material.createdAt)}}
-			 			</span>
-			 			<span  v-if="material.tags?.length" class="metadata-item">
-			 			 🏷️ {{materials.join(', ')}}
-			 			</span>
-			 		</div>
-			 		<!-- Rechazo(Si Aplica) -->
-			 		<div v-if="material.status === 'rejected'  && material.rejectionReason" class="rejection-reason">
-			 			<strong>Razón del Rechazo</strong>
-			 				<p>{{material.reactionReason}}</p>
-			 		</div>
-			 		<!-- Utilidad: Acciones de Moderación -->
-			 		<div class="moderation-actions">
-			 			<!-- Para materiales Pendientes -->
-	 					<template>
-	 						<button
-	 						  @click="utilityModerateApprove(material)"
-	 						  class="btn-action btn-approve"
-	 						  >{✅Aprobar}
-	 						</button>
-	 						<button class="btn-action btn-reject">
-	 						  ❌Rechazar
-	 					    </button>
-	 					</template>
-	 						<!-- Para Materiales Moderados -->
-	 					<template v-else-if="material.status !== pending">
-	 						<button @click="manipulateRevert(material)" class="btn-action btn-revert">
-	 							🔄️ Revertir
-	 						</button>
-	 					</template>
-	 					<!-- Acciones comunes -->
-	 					<button @click="ApplyMaterialView(material)" class="btn-action btn-view">👁️ Ver</button>
-	 					<button @click="ApplyMaterialEdit(material)" class="btn-action btn-edit">✏️ Editar</button>
-			 		</div>		
-			 	</div>
-			 </div>
-		</div>
-
-		<transition class="modal">
-			<div class="modal-overlay" v-if="showRejectModal">
-				<div  class="modal-content" @click.stop>
-					<div class="modal-header">
-						<h3> ❌ Rechazar Material</h3>
-						<button  @click="closeRejectModal" class="modal-close">✕</button>
-					</div>
-					<div class="modal-body">
-						 <p>
-						 	<strong>Material: </strong>{selectedMaterial?.titulo}
-						 </p>
-						 <p>
-						 	<strong>Autor:</strong>{selectedMaterial?.autorNombre}
-						 </p>
-					</div>
-
-					<div class="form-field">
-						<label for="">Razón del Rechazo</label>
-						<textarea  id="rejection-reason" v-model="reajtionReason" 
-						  placeholder="Explica porque se rechazo este material..." 
-						   class="field-text-area"  
-						   rows="4" required></textarea>
-					</div>
-				</div>
-					<!-- Descomentar |--Pendiente--| -->
-				<!-- <div class="modal-actions">
-					<button @click="closeReajectModal" class="btn-cancel">
-					  Cancelar
-					</button>
-					<button  @click="confirmReject" class="btn-confirm-reject">
-					  Confirmar Rechazo
-					</button>
-				</div> -->
-			</div>
-		</transition>
-
 	</div>
  </template>	 
 
 <script setup lang="ts">
 	import { ref, computed, onMounted } from 'vue';
 	import { useMaterialTeacherStore,MaterialFilter } from '@stores/materials/MaterialTeacherStore';
-	import type { Material} from  '@/types/indexInterface';
-	c4f93e5be1f71f71cd1ff99e92ab3ac4cda... 
+	import type { Material} from  '/types/indexInterface';
+	// c4f93e5be1f71f71cd1ff99e92ab3ac4cda... 
 	// ============================
 	// STORE
 	// ============================
@@ -362,11 +363,11 @@
 	 onMounted(async()=>{
 	 	await materialStore.loadNavBarUnify();
 	 });
-	 c4f93e5be1f71f71cd1ff99e92ab3ac4cda... 
+	 // c4f93e5be1f71f71cd1ff99e92ab3ac4cda... 
 </script>
 <style scoped>
 	@import '@/assets/styles/materialColors.css';
-	c4f93e5be1f71f71cd1ff99e92ab3ac4cda... 
+	/*c4f93e5be1f71f71cd1ff99e92ab3ac4cda... */
 	/**
 	 * ======================
 	 *   CONTENEDOR PRINCIPAL

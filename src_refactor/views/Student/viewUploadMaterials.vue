@@ -524,8 +524,8 @@
 	   		await materialStore.fetchMyMaterials();
 	    });
 </script>
-<style>
-    @import '@/assets/styles/materialColors.css';
+<style >
+    @import '/assets/styles/materialColors.css';
 	/* ============================================ */
   /* CONTENEDOR PRINCIPAL                        */
   /* ============================================ */

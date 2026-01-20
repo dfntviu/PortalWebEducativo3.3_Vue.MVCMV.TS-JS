@@ -1,4 +1,4 @@
-e<template>
+<template>
 	<div class="home-view min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
 		<!-- Hero Section con Búsqueda rápida -->
 		<section class="hero-section max-w-7xl mx-auto mb-12"> 
@@ -19,11 +19,10 @@ e<template>
 				<div class="max-w-2xl mx-auto mt-8">
 					<div class="relative">
 						 <input type="text"   placeholder=" Buscar: materiales, autores, categorías." 
-						  class="w-full px-6 py-4 pr-32 text-lg border-2 border-gray-300 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500 bg-white darl:bg-gray-900 dark:text-white transition-all"
+						  class="w-full px-6 py-4 pr-32 text-lg border-2 border-gray-300 dark:border-gray-600 rounded-2xl focus:ring-4 focus:ring-blue-500 bg-white dark:bg-gray-900 dark:text-white transition-all"
 						  @keyup.enter="handleQuickSearch"/>
-						    <button class="absolute rigth-2 top-1/2 -translate-y-1/2 px-6 py-2 bg-blue-500 text-white roundend-xl hover:bg-blue-600
-						    transition-colors font-medium">
-						    		Buscar
+						    <button class="absolute rigth-2 top-1/2-translate-y-1/2 px-6 py-2 bg-blue-500 text-white roundend-xl hover:bg-blue-600 transition-colors font-medium">
+						     Buscar
 						    </button>
 					</div>
 					<div class="flex items-center justify-center gap-4 mt-3">
@@ -31,8 +30,8 @@ e<template>
 							  <!-- Sist. Coordenadas Declarativo -->
 	 						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 	 							<!-- comporta y renderizan las coordenadas -->
-	 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M12 6V4mo 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 110-4m" />  <!-- instrucciones vectoriales -->
-	 						<svg>
+	 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M12 6V4mo 2a2 2 0 100 4m0-4a2 2 0 110  4m-6 8a2 2 0 110-4m" />  <!-- instrucciones vectoriales -->
+	 						</svg>
 						   Busqueda Avanzada
 	 					</button>
 	 					<span class="text-gray-40">|</span>
@@ -134,7 +133,7 @@ e<template>
 			<div v-if="featuredMaterials.length === 0" class="text-center py-12">
 				<svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stoke="currentColor" viewBox="0 0 24 24">
 				 <path  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  d="M9 12h6m-6 2 0 01-2-2v5a2 2 012-2h5.586a1 1 0 
-				 01.707.29315.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+				 01.707.29315.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/> <!--autoclausura/cierre> -->
 				</svg>
 				 <p class="text-gray-600 dark:text-gray-400">No hay Materiales disponibles</p>
 			</div> 		

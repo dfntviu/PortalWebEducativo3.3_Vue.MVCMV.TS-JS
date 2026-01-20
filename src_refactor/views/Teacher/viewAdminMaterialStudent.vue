@@ -1,4 +1,4 @@
-<template>
+<template>   
 	 <!--════════════════════════════════════════ -->
 	 <!--       MAIN CONTAINER 					  -->
 	 <!--════════════════════════════════════════ -->
@@ -12,6 +12,7 @@
 	 			  Administra y filtra los Materiales acádemicos de tús Estudiantes
 	 			</p>
 	 		</header>
+	 		 
 	 			 <!--════════════════════════════════════════ -->
 				 <!--       FILTER SECTION 									  -->
 				 <!--════════════════════════════════════════ -->
@@ -66,26 +67,24 @@
 				 <!--════════════════════════════════════════ -->
 				 <!--       ERROR STATE					      -->
 				 <!--════════════════════════════════════════ -->
-				<section    class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 animate-shake">
+				<section  class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 animate-shake">
 				 	<div   class="flex items-start space-x-4 p-4 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded">
-				 		<svg  class="w-6 h-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5">
-				 			<path  fill-rule="evenodd" 
-                			d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                		</svg>
+				 			<svg  class="w-6 h-6 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20">
+				 				<path  fill-rule="evenodd"  9,4
+                			d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                		</svg>	
 			 			<div class="flex-1">
-			 				<h3  class="text-red-800 dark:text-red-300 font-semibold mb-1">
-			 					Error al cargar los Materiales
-			 				</h3>
-			 				<p class="text-red-700 dark:text-red-400 text-sm"> {{materialesStore.error}} </p>
+			 				<h3  class="text-red-800 dark:text-red-300 font-semibold mb-1">Error al cargar los Materiales</h3>
+			 				<p class="text-red-700 dark:text-red-400 text-sm"> {{materialStore.error}} </p>
 			 				<button 
 			 				  @click="reintentar"
-			 				  @keydow.enter="reintentar"
+			 				  @keydown.enter="reintentar"
 			 				  class="mt-3 px-4 py-2 bg-red-600 hover:bg-red-700 active:bg-red-800 text-white rounded-lg text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
 			 				  aria-label="reintentar la carga de Materiales" >
-			 					Reintentar
+			 					 Reintentar
 			 				</button>
-			 			</div>
-				 	</div>
+			 			</div>				 	
+			 		</div>
 				</section>
 
 				 <!-- ──────────────────────────────────── -->
@@ -324,18 +323,18 @@
       * Observa cambios en el error del store para mostrar notificaciones
       * */
       watch(
-     	  () => materialStore.error,
+     	  () => materialStore.error, {
      	   (nuevoError)=>{
 		  	 	if(nuevoError){
 		  	 		 mostrarNotificacionFn(nuevoError, 'error');
 		  	 	}
       	}
-      );
+      });
 
     /**
     * Observa como se cargan los materiales exitosamente
     * */
-    watch( ()=> materialStore.materials{
+    watch( ()=> materialStore.materials, {
 	 		(nuevosMateriales, materialesPrevios) => {
 	 			// 
 	 			if( (materialesPrevios || materialesPrevios.length === 0) && 

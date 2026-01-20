@@ -1,8 +1,8 @@
-  import viewAdminMaterialStudent from '@/views/Teacher/viewAdminMaterialStudent.vue';    
-  import viewAdminStatisticsMaterials from '@/views/Teacher/viewAdminStatisticsMaterials.vue'; 
-  import viewBienvenidaTeachers from '@/views/Teacher/viewBienvenidaTeachers.vue';
-  import viewModerateMaterials from '@/views/Tracher/viewModerateMaterials.vue';
-  import viewRegisterTeacher from '@/views/Tracher/viewRegisterTeacher.vue'
+  import viewAdminMaterialStudent from '/views/Teacher/viewAdminMaterialStudent.vue';    
+  import viewAdminStatisticsMaterials from '/views/Teacher/viewAdminStatisticsMaterials.vue'; 
+  import viewBienvenidaTeachers from '/views/Teacher/viewBienvenidaTeachers.vue';
+  import viewModerateMaterials from '/views/Teacher/viewModerateMaterials.vue';
+  import viewRegisterTeacher from '/views/Teacher/viewRegisterTeacher.vue'
   // import viewModerarAbsoluteCM from '@/views/Tracher/viewModerarAbsoluteCM.vue'; /*??*/
 
    // FILE ROUTER TWO: ROLE_OF_TEACHERS
