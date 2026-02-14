@@ -1,0 +1,15 @@
+ .vista-estudiantes {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 2rem 1rem;
+   }
+   /* ------------------------------------ 
+            NAVEGACION ENTRE PANELES 
+      ------------------------------------ */
+   .navegacion-paneles {
+     display: flex;
+     justify-content: center;
+     gap: 1rem;
+     margin-bottom: 2rem;
+     flex-wrap: wrap;
+   }

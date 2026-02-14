@@ -1,0 +1,250 @@
+/** **
+ * @file
+ * @decription: configuracion de colores para el modulo de materiales
+ * 
+ * ESQUEMA DE COLORES
+ * - Card Interno: Gris  semiintenso 
+ * - Card Externo: Azul Obscuro intenso
+ * 
+ * ESTUDIANTES
+ * - Card Interno: Verde Obscuro
+ * - Card Externo: Blanco Semi-intenso
+ * 
+ * PROFESORES
+ *  - Card Externo: Café Suave
+ *  - Card Interno: Blanco semi-intenso
+ ** **/
+  :root {
+  	 /* ============================== */
+     /*    COLORES GENERALES           */
+     /* ============================== */
+     /*Card Externo General */
+     --color-card-ext-general: #1a3a5c;  /*Azul obscuro intenso*/
+     --color-card-ext-hover: #2a4a6c;
+
+     /* Card Interno General */
+     --color-card-int-general: #6b7280;     /*gris semi-intenso*/
+     --color-card-int-general-hover: #7b8290;
+     /* =========================== */
+     /*    COLORES ESTUDIANTE       */
+     /* =========================== */
+     
+     /* Card Externo Estudiante */
+     --color-card-ext-student: #1e5631;  /* Verde Obscuro */
+     --color-card-ext-student-hover: #2e6641;  /* Verde ligero */
+     --color-card-ext-student-border: #2e6641; /* Verde ligero */
+
+     /* Card Interno Estudiante */
+     --color-card-int-student:#f5f5f5;  /*Blanco Semi-inteso*/
+     --color-card-int-student-hover: #fff;
+     --color-card-int-student-border:#e0e0e0; /*Blanco cercano al gris*/
+
+     /* Acentos de Estudiante */
+     --color-accent-student: #22c55e;  		/* Verde inteso */
+     --color-accent-student-hover: #16a34a;
+     --color-text-student: #065f46;			/* Verde obscuro [texto] */
+
+     /* ============================ */
+     /*    COLORES PROFESOR          */
+     /* ============================ */
+      /* Card Externo Profesor  */
+     --color-card-ext-teacher: #a0826d;  /*Cafe suave(ligero) */
+     --color-card-ext-teacher-hover: #b0927d;  /*Cafe + intenso*/
+     --color-card-ext-teacher-border: #8b7355;
+
+     /* Card Interno Profesor */
+     --color-card-int-teacher:#f5f5f5; 
+     --color-card-int-teacher-hover:#fff; 
+     --color-card-int-teacher-border:#e0e0e0;
+
+     /* Acentos Profesor */
+     --color-accent-teacher:#d97706; /* Naranja-cafe calido */
+     --color-accent-teacher-hover:#b45309;  /* Naranja Palido */
+     --color-text-teacher:#78350f;  /* Cafe obscuro */
+
+     /* ============================ */
+     /*    ESTADOS DE MATERIALES     */
+     /* ============================ */
+
+     /* Pendiente */
+     --color-status-pending:#f59e0b;
+     --color-status-pending-bg:#fef3c7;
+     --color-status-pending-border:#fbbf24;
+
+     /* Aprobado */
+     --color-status-approved: #10b981;
+     --color-status-approved-bg:#d1fae5;
+     --color-status-approved-border:#34d399;
+
+     /* Rechazado */
+     --color-status-rejected: #ef4444;
+     --color-status-rejected-bg:#fee2e2;
+     --color-status-rejected-border:#f87171;
+
+     /* ======================= */
+     /*      COLORES COMUNES    */
+     /* ======================= */
+
+     /* Textos */
+      --color-text-primary:#1f2937;
+      --color-text-sencondary:#6b7280;
+      --color-text-muted:#9ca3af;
+     
+     /* Fondos */
+     --color-text-primary:#fff;
+     --color-text-sencondary:#f9fafb;
+     --color-text-tertiary:#f3f4f6;
+
+     /* Bordes */
+     --color-border-ligth:#e5e7eb;
+     --color-border-medium:#d1d5db;
+     --color-border-dark:#9ca3af;
+
+     /* Sombras */
+     --shadow-sm: 0 1px 2px    0 rgba(0,0,0,0.05);
+     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05);
+     --shadow-lg: 0 4px 6px -3px rgba(0,0,0,0.1);
+     --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+
+     /*=============================*/
+     /* TRANSICIONES Y ANIMACIONES  */
+     /*=============================*/
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1); 
+      --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+       /*x1 del primer punto que orienta la curva bezier */  
+       /*y1 del primer punto que orienta la curva bezier */
+       /*x2 del primer punto que orienta la curva bezier */
+       /*y2 del primer punto que orienta la curva bezier */
+
+      /*============================ */
+      /*      ESPACIADO Y TAMANIOS   */
+      /*============================ */
+      --spacing-xs:0.25rem; /*extrasmall ->muy pequenio*/
+      --spacing-sm:0.5rem;
+      --spacing-lg:1rem;
+      --spacing-xl:1.25rem; /*extralarge xl -> extragrande*/
+      --spacing-2xl:3rem;  /* twice extralarge -> 2 veces extragrande */
+
+      --border-radius-sm: 0.375rem;
+      --border-radius-md: 0.5rem;
+      --border-radius-lg:0.75rem;
+      --border-radius-xl: 1rem;
+  }
+     /*========================= */
+     /*  CLASES UTILIDADES       */
+     /*========================= */
+
+    /*Cards Estudiante */
+    .card-ext-student{
+      background-color: var(--color-card-ext-student);
+      border: 2px solid var(--color-card-ext-student-border);
+      transition: all var(--transition-base);
+    }
+
+    .card-ext-student:hover{
+      background-color: var(--color-card-ext-student);
+      border: 2xp solid var(--color-card-int-student-borders);
+      transition: all var(--transition-base);
+    }
+
+    .card-int-student{
+      background-color: var(--color-card-int-student);
+      text-replace: 1px solid var(--color-card-int-student-border);
+      transition: all var(--transition-base);
+    }
+
+    .card-int-student:hover {
+      background-color: var(--color-card-int-student-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Cards Profesor */
+    .card-student{
+      background-color: var(--color-card-ext-student);
+      border: 2px solid var(--color-card-ext-student-border);
+      transition: all var(--transition-base);
+    }
+
+    .color-card-ext-student:hover{
+      background-color: var(--color-card-ext-student-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-int-student {
+      background-color: var(--color-card-int-student);
+      border: 1px solid var(--color-card-int-student-border);
+      transition: all var(--transition-base);
+    }
+
+    .card-int-student:hover{
+      background-color: var(--color-card-int-student-hover);
+      box-shadow: var(--shadow-md);
+    }  
+
+    .card-ext-teacher{
+      background-color: var(--color-card-ext-teacher-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-int-teacher:hover{
+        background-color: var(--color-card-int-student-hover);
+        box-shadow:var(--shadow-md) ;
+    }
+    
+    /* Badges de Estado */
+
+     /*🤔 -> insignia*/
+    .badge-pending {
+      background-color: var(--color-card-int-teacher-hover);
+      box-shadow: var(--shadow-md);
+    }
+    /*🙂*/
+    .badge-approved {
+      background-color: var(--color-card-int-teacher-hover);
+      box-shadow: var(--shadow-md);
+    }
+      /*🙁*/
+    .badge-rejected {
+      background-color: var(--color-status-pending-bg);
+      color: var(--color-status-pending);
+      border: 1px solid 0.75rem; 
+      border-radius: var(--border-radius-md);
+      font-size: 0.875rem;   /*10.5px*/ 
+      font-weight: 500;
+    }
+    
+    /* Animaciones */
+    @keyframes fadeIn{
+       from{
+          opacity:  0;
+          transform: translateY(10px);
+       }
+
+       to{
+          opacity: 1;
+          transform:translateY(0); 
+       }
+    }
+
+    @keyframes slideIn{
+        from {
+           opacity: 0;
+           transform: translateX(-20px);
+        }
+
+        to {
+           opacity: 1;
+           transform: translateX(0);
+        }
+    }
+
+    .fade-in{
+       animation: fadeIn var(--transition-slow) ease-out;
+    }
+
+    .slide-in{
+      animation: slideIn var(--transition-slow) ease-out;
+    } 
